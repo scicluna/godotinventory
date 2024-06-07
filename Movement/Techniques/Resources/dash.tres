@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dwb6fbitn8v2b"]
+
+[ext_resource type="Shader" path="res://Movement/Techniques/Resources/dash.gdshader" id="1_4dh7g"]
+
+[resource]
+shader = ExtResource("1_4dh7g")
+shader_parameter/blur_radius = 0.211
+shader_parameter/blur_amount = 0.0
+shader_parameter/blur_inner = 0.744
+shader_parameter/blur_outer = 0.875
+shader_parameter/blur_color = Vector4(0, 0, 2, 1)
+shader_parameter/line_thickness = 0.018
+shader_parameter/line_spacing = 66.517
+shader_parameter/line_boldness = 2.635
+shader_parameter/line_color = Vector4(0.1, 0.1, 0.1, 1)
+shader_parameter/effect_intensity = 0.0

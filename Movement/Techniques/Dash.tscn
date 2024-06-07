@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://75ie6sp5jq7p"]
+
+[ext_resource type="Script" path="res://Movement/Techniques/Scripts/Dash.gd" id="1_vq0d2"]
+[ext_resource type="AudioStream" uid="uid://c41ggk4ic1ijp" path="res://Movement/Techniques/Resources/mixkit-arrow-whoosh-1491.wav" id="2_4xr0u"]
+[ext_resource type="Material" uid="uid://dwb6fbitn8v2b" path="res://Movement/Techniques/Resources/dash.tres" id="3_333pk"]
+
+[node name="Dash" type="Node3D"]
+script = ExtResource("1_vq0d2")
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="DashSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4xr0u")
+volume_db = -17.672
+pitch_scale = 1.07
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="Dash_Blur" type="ColorRect" parent="."]
+material = ExtResource("3_333pk")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
