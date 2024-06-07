@@ -14,9 +14,12 @@ const JUMP_VELOCITY = 6
 
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
-@onready var movement_abilities: Array[Movement] = []
+
 var dashing = false
-var inventory_open = false
+
+# dependencies (plug in modules)
+@onready var inventory = $Inventory
+@onready var movement_abilities: Array[Movement] = []
 
 func _ready():
 	# Placeholder Movement Ability Granted
@@ -39,7 +42,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and not inventory_open:
+	if event is InputEventMouseButton and event.pressed and not inventory.visible:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

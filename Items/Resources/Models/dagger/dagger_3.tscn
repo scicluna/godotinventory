@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://v12v3qjnirut"]
+
+[ext_resource type="PackedScene" uid="uid://dwjxduidk6q0b" path="res://Items/Resources/Models/dagger/dagger3.glb" id="1_7s16h"]
+
+[node name="dagger3" instance=ExtResource("1_7s16h")]

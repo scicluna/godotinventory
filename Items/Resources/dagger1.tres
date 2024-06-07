@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://dt2h3f1avpwnu"]
+
+[ext_resource type="PackedScene" uid="uid://v12v3qjnirut" path="res://Items/Resources/Models/dagger/dagger_3.tscn" id="2_eviju"]
+[ext_resource type="Script" path="res://Items/Resources/Scripts/WeaponData.gd" id="3_036cb"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6xwts"]
+
+[resource]
+script = ExtResource("3_036cb")
+item_damage = 3
+attack_speed = 1.0
+attack_range = 3.0
+item_type = 0
+item_name = "Dagger"
+description = "Woah, another dagger!"
+item_icon = SubResource("PlaceholderTexture2D_6xwts")
+item_texture = ExtResource("2_eviju")

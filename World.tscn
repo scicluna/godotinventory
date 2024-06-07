@@ -20,6 +20,6 @@ transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0.0102561, -0.0615635, 0.0
 shape = SubResource("ConvexPolygonShape3D_kiny2")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.906256, 0.422729, 0, -0.422729, -0.906256, 64.475, 18.2652, 0)
+transform = Transform3D(-0.917032, 0.355966, 0.179834, 0.398813, 0.818508, 0.413512, 0, 0.450924, -0.892562, 64.475, 18.2652, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_ahhwk")]
