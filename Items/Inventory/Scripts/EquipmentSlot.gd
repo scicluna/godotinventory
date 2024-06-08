@@ -3,15 +3,15 @@ class_name EquipmentSlot
 
 @export var equipment_type: EquipmentData.EquipmentType
 
-func _can_drop_item(_at_position: Vector2, item: Variant) -> bool:
-	if item is InventoryItem and item.equipment_type == equipment_type:
+func drop_is_valid(dragged_item: Variant) -> bool:
+	if dragged_item is InventoryItem:
 		if type == ItemData.ItemType.MAIN:
 			if self.get_child_count() == 0:
 				return true
 			else:
-				if type == item.get_parent().ItemType:
+				if type == dragged_item.get_parent().type:
 					return true
-				return self.get_child(0).data.ItemType == item.data.ItemType
+				return self.get_child(0).data.ItemType == dragged_item.data.ItemType
 		else:
-			return item.data.ItemType == type
+			return dragged_item.data.item_type == type
 	return false

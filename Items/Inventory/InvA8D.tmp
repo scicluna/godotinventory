@@ -48,7 +48,6 @@ script = ExtResource("2_bd1wy")
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
-equipment_type = null
 type = 1
 
 [node name="Chest" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
