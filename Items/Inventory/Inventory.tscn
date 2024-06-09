@@ -1,36 +1,43 @@
-[gd_scene load_steps=5 format=3 uid="uid://du8sh5k1bhnru"]
+[gd_scene load_steps=6 format=3 uid="uid://du8sh5k1bhnru"]
 
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/Inventory.gd" id="1_2yqjw"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/EquipmentSlot.gd" id="2_f7po3"]
+[ext_resource type="Script" path="res://Items/Inventory/Dropper.gd" id="2_upq8b"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/InventoryPanel.gd" id="2_xashd"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/WeaponSlot.gd" id="3_mhelf"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_right = 2.0
 script = ExtResource("1_2yqjw")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
-visible = false
 
-[node name="Equips" type="Panel" parent="InventoryUI"]
+[node name="UIControl" type="Control" parent="InventoryUI"]
+layout_mode = 3
+anchor_right = 1.001
+anchor_bottom = 1.003
+offset_right = -0.1521
+offset_bottom = -1.94403
+script = ExtResource("2_upq8b")
+
+[node name="Equips" type="Panel" parent="InventoryUI/UIControl"]
+layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.028
-anchor_top = 0.321
-anchor_right = 0.243
-anchor_bottom = 0.395
-offset_left = -0.256001
-offset_top = 7.99199
-offset_right = 0.0639954
-offset_bottom = 8.03999
+anchor_left = 0.056
+anchor_top = 0.444
+anchor_right = 0.271
+anchor_bottom = 0.517
+offset_left = -0.568001
+offset_top = -0.378052
+offset_right = -0.248016
+offset_bottom = 0.317963
 script = ExtResource("2_xashd")
 
-[node name="GridContainer" type="GridContainer" parent="InventoryUI/Equips"]
-layout_mode = 0
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/Equips"]
+layout_mode = 1
+anchors_preset = -1
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 240.0
@@ -39,58 +46,68 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
 
-[node name="Weapon" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
+[node name="Weapon" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("3_mhelf")
 
-[node name="Head" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
+[node name="Head" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 type = 1
 
-[node name="Chest" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
+[node name="Chest" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 1
 type = 1
 
-[node name="Legs" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
+[node name="Legs" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 2
 type = 1
 
-[node name="Feet" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
+[node name="Feet" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 3
 type = 1
 
-[node name="Accessory" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
+[node name="Accessory" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 4
 type = 1
 
-[node name="Main" type="Panel" parent="InventoryUI"]
-offset_left = 32.0
-offset_top = 272.0
-offset_right = 280.0
-offset_bottom = 440.0
+[node name="Main" type="Panel" parent="InventoryUI/UIControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.056
+anchor_top = 0.525
+anchor_right = 0.271
+anchor_bottom = 0.784
+offset_left = 0.267998
+offset_top = -0.170013
+offset_right = 0.587982
+offset_bottom = -0.00201416
 script = ExtResource("2_xashd")
 
-[node name="GridContainer" type="GridContainer" parent="InventoryUI/Main"]
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/Main"]
 layout_mode = 2
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 240.0
-offset_bottom = 160.0
+anchor_left = 0.032
+anchor_top = 0.048
+anchor_right = 0.032
+anchor_bottom = 0.048
+offset_left = 0.0639997
+offset_top = -0.0640001
+offset_right = 232.064
+offset_bottom = 151.936
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6

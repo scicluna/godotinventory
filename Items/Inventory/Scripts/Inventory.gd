@@ -1,6 +1,6 @@
 extends Control
 
-@onready var grid = $InventoryUI/Main/GridContainer
+@onready var grid = $InventoryUI/UIControl/Main/GridContainer
 @onready var inventory_ui = $InventoryUI
 
 const MAX_SLOTS = 24
@@ -27,3 +27,6 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+func _can_drop_data(at_position, data):
+	return true

@@ -52,6 +52,11 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# early return if the references are to the same item
 			if dragged_item == slot_item:
 				return
+				
+			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
+			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
+				origin_slot.equip_item(null)
+				pass
 
 			# if this slot is not in the main inventory... or the former slot was not in the main inventory...
 			if type != ItemData.ItemType.MAIN or slot_item.data.item_type != ItemData.ItemType.MAIN:
@@ -65,9 +70,9 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			dragged_item.get_parent().swapping = false
 			dragged_item.reparent(self)
 			
+			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
 			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
-				print("unequip")
-				equip_item(null)
+				origin_slot.equip_item(null)
 				pass
 			
 			if type != ItemData.ItemType.MAIN:
@@ -77,6 +82,5 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			origin_slot.slot_item = null
 			
 # Implement in sub-classes		
-func equip_item(dragged_item: Variant) -> void:
+func equip_item(new_item: Variant) -> void:
 	pass
-	

@@ -18,22 +18,24 @@ func drop_is_valid(dragged_item: Variant) -> bool:
 
 # Hooks up to the player and updates their stats
 func equip_item(new_item: Variant) -> void:
+	print("equipped...", new_item)
 	var player := self.get_owner().get_owner()
 	
-	match equipment_type:
-		EquipmentData.EquipmentType.HEAD:
-			player.equipped_head = new_item.data
-		EquipmentData.EquipmentType.CHEST:
-			player.equipped_chest = new_item.data
-		EquipmentData.EquipmentType.LEGS:
-			player.equipped_legs = new_item.data
-		EquipmentData.EquipmentType.FEET:
-			player.equipped_feet = new_item.data
-		EquipmentData.EquipmentType.ACCESSORY:
-			player.equipped_accessory = new_item.data
+	if new_item.data is EquipmentData:
+		match new_item.data.equipment_type:
+			EquipmentData.EquipmentType.HEAD:
+				player.equipped_head = new_item.data
+			EquipmentData.EquipmentType.CHEST:
+				player.equipped_chest = new_item.data
+			EquipmentData.EquipmentType.LEGS:
+				player.equipped_legs = new_item.data
+			EquipmentData.EquipmentType.FEET:
+				player.equipped_feet = new_item.data
+			EquipmentData.EquipmentType.ACCESSORY:
+				player.equipped_accessory = new_item.data
+			_:
+				print("error - equipped mysterious slot for item: ", new_item.data.name)
+				
 
-	# Optionally, update player stats or any other relevant information
-	# For example:
-	# player.update_stats()
+	# Call update player stats
 
-	print(player.bonus_stats)

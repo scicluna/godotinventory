@@ -2,7 +2,7 @@ extends Panel
 class_name InventoryPanel
 
 @onready var grid_container := $GridContainer
-var slot_item: InventoryItem
+var origin_slot: InventorySlot
 
 func _can_drop_data(_at_position, _data) -> bool:
 	return true
@@ -37,34 +37,52 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	# if this slot is occupied...
 	if closest_slot and drop_is_valid(closest_slot, dragged_item):
 		
+		origin_slot = dragged_item.get_parent()
+		
 		# if this slot is occupied...
 		if closest_slot.get_child_count() > 0:
+
 			# record the item we just dropped on
 			if dragged_item != closest_slot.get_child(0):
-				slot_item = closest_slot.get_child(0)
+				closest_slot.slot_item = closest_slot.get_child(0)
 			else:
-				slot_item = closest_slot.get_child(-1)
+				closest_slot.slot_item = closest_slot.get_child(-1)
 				
 			# add dragged item to the slot
 			dragged_item.reparent(closest_slot)
 				
 			# early return if the references are to the same item
-			if dragged_item == slot_item:
+			if dragged_item == closest_slot.slot_item:
 				return
+				
+			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
+			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
+				origin_slot.equip_item(null)
+				pass
 
 			# if this slot is not in the main inventory... or the former slot was not in the main inventory...
-			if closest_slot.type != ItemData.ItemType.MAIN or slot_item.data.item_type != ItemData.ItemType.MAIN:
+			if closest_slot.type != ItemData.ItemType.MAIN or closest_slot.slot_item.data.item_type != ItemData.ItemType.MAIN:
 				# Function to handle equipment changes
-				# Something like change_equipment(player, dragged_item, slot_item)
+				closest_slot.equip_item(dragged_item)
 				pass
 				
 			# swap items
+			origin_slot = closest_slot
 			closest_slot.swapping = true
-			closest_slot.slot_item = slot_item
 		else:
 			dragged_item.get_parent().swapping = false
 			dragged_item.reparent(closest_slot)
-			slot_item = null
+			
+			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
+			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
+				origin_slot.equip_item(null)
+				pass
+			
+			if closest_slot.type != ItemData.ItemType.MAIN:
+				closest_slot.equip_item(dragged_item)
+				pass
+			
+			origin_slot.slot_item = null
 		
 		
 

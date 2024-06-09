@@ -133,5 +133,9 @@ func equip_weapon(new_weapon: WeaponData):
 	print("equipped: ", new_weapon)
 	pass
 	
+func unequip_weapon():
+	print("unequipped weapon")
+	pass
+	
 func update_equipment_stats():
 	pass
