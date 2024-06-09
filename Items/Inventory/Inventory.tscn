@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://du8sh5k1bhnru"]
 
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/Inventory.gd" id="1_2yqjw"]
-[ext_resource type="Script" path="res://Items/Inventory/Scripts/InventorySlot.gd" id="2_bd1wy"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/EquipmentSlot.gd" id="2_f7po3"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/InventoryPanel.gd" id="2_xashd"]
+[ext_resource type="Script" path="res://Items/Inventory/Scripts/WeaponSlot.gd" id="3_mhelf"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
@@ -42,13 +42,12 @@ columns = 6
 [node name="Weapon" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-script = ExtResource("2_bd1wy")
+script = ExtResource("3_mhelf")
 
 [node name="Head" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 script = ExtResource("2_f7po3")
-equipment_type = null
 type = 1
 
 [node name="Chest" type="PanelContainer" parent="InventoryUI/Equips/GridContainer"]

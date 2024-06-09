@@ -53,10 +53,19 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# if this slot is not in the main inventory... or the former slot was not in the main inventory...
 			if type != ItemData.ItemType.MAIN or slot_item.data.item_type != ItemData.ItemType.MAIN:
 				# Function to handle equipment changes
-				# Something like change_equipment(player, dragged_item, slot_item)
+				equip_item(dragged_item)
 				pass
 			# swap items
 			swapping = true
 		else:
 			dragged_item.get_parent().swapping = false
 			dragged_item.reparent(self)
+			
+			if type != ItemData.ItemType.MAIN:
+				equip_item(dragged_item)
+				pass
+		
+# Implement in sub-classes		
+func equip_item(dragged_item: Variant) -> void:
+	pass
+	

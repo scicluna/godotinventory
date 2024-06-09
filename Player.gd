@@ -21,6 +21,27 @@ var dashing = false
 @onready var inventory = $Inventory
 @onready var movement_abilities: Array[Movement] = []
 
+var base_stats := {
+	"STR": 0,
+	"AGI": 0,
+	"STA": 0,
+	"INT": 0
+}
+
+var bonus_stats := {
+	"STR": 0,
+	"AGI": 0,
+	"STA": 0,
+	"INT": 0
+}
+
+var equipped_weapon: WeaponData
+var equipped_head: EquipmentData
+var equipped_chest: EquipmentData
+var equipped_legs: EquipmentData
+var equipped_feet: EquipmentData
+var equipped_accessory: EquipmentData
+
 func _ready():
 	# Placeholder Movement Ability Granted
 	# Will eventually need to obtain this in game
