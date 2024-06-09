@@ -21,6 +21,7 @@ var dashing = false
 @onready var inventory = $Inventory
 @onready var movement_abilities: Array[Movement] = []
 
+# stats
 var base_stats := {
 	"STR": 0,
 	"AGI": 0,
@@ -35,6 +36,7 @@ var bonus_stats := {
 	"INT": 0
 }
 
+# equipment
 var equipped_weapon: WeaponData
 var equipped_head: EquipmentData
 var equipped_chest: EquipmentData
@@ -42,6 +44,7 @@ var equipped_legs: EquipmentData
 var equipped_feet: EquipmentData
 var equipped_accessory: EquipmentData
 
+# start logic
 func _ready():
 	# Placeholder Movement Ability Granted
 	# Will eventually need to obtain this in game
@@ -125,3 +128,10 @@ func cap_speed():
 			var speed_ratio = MAX_SPEED / horizontal_speed
 			velocity.x *= speed_ratio
 			velocity.z *= speed_ratio
+
+func equip_weapon(new_weapon: WeaponData):
+	print("equipped: ", new_weapon)
+	pass
+	
+func update_equipment_stats():
+	pass

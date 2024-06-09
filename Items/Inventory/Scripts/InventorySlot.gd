@@ -4,6 +4,7 @@ class_name InventorySlot
 @export var type: ItemData.ItemType
 var slot_item: InventoryItem
 var swapping := false
+var origin_slot: InventorySlot
 
 func init(item_type: ItemData.ItemType, custom_min_size: Vector2) -> void:
 	type = item_type
@@ -32,6 +33,8 @@ func drop_is_valid(dragged_item: Variant) -> bool:
 # handle drop signal
 func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 
+	origin_slot = dragged_item.get_parent()
+
 	if drop_is_valid(dragged_item):
 		
 		# if this slot is occupied...
@@ -56,15 +59,23 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				equip_item(dragged_item)
 				pass
 			# swap items
+			origin_slot = self
 			swapping = true
 		else:
 			dragged_item.get_parent().swapping = false
 			dragged_item.reparent(self)
 			
+			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
+				print("unequip")
+				equip_item(null)
+				pass
+			
 			if type != ItemData.ItemType.MAIN:
 				equip_item(dragged_item)
 				pass
-		
+			
+			origin_slot.slot_item = null
+			
 # Implement in sub-classes		
 func equip_item(dragged_item: Variant) -> void:
 	pass

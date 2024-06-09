@@ -10,12 +10,12 @@ func _can_drop_data(_at_position, _data) -> bool:
 func drop_is_valid(closest_slot: Control, dragged_item: Variant) -> bool:
 	if dragged_item is InventoryItem:
 		if closest_slot.type == ItemData.ItemType.MAIN:
-			if self.get_child_count() == 0:
+			if closest_slot.get_child_count() == 0:
 				return true
 			else:
 				if dragged_item.get_parent() and closest_slot.type == dragged_item.get_parent().type:
 					return true
-				return self.get_child(0).data.ItemType == dragged_item.type
+				return closest_slot.get_child(0).data.ItemType == dragged_item.type
 		else:
 			return dragged_item.data.item_type == closest_slot.type
 	return false

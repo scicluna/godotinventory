@@ -15,6 +15,8 @@ func drop_is_valid(dragged_item: Variant) -> bool:
 	return false
 
 # Hooks up to the player and changes their equipped weapon
-func equip_item(_old_item:Variant, new_item: Variant) -> void:
+func equip_item(new_item: Variant) -> void:
 	var player := self.get_owner().get_owner()
-	player.equipped_weapon = new_item.data
+	
+	if new_item.data is WeaponData:
+		player.equip_weapon(new_item.data)
