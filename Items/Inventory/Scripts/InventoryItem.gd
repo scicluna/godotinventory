@@ -22,9 +22,9 @@ func make_drag_preview(at_position: Vector2) -> Control:
 	rect.texture = self.texture
 	rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	rect.custom_minimum_size = Vector2(32, 32)
+	rect.custom_minimum_size = Vector2(48, 48)
 	rect.position = -0.5 * rect.custom_minimum_size
-	rect.modulate.a = 0.5
+	rect.modulate.a = 0.7
 	
 	var control := Control.new()
 	control.z_index = 10

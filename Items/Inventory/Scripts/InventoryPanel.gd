@@ -53,6 +53,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				
 			# early return if the references are to the same item
 			if dragged_item == closest_slot.slot_item:
+				dragged_item.visible = true
 				return
 				
 			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
@@ -69,6 +70,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# swap items
 			origin_slot = closest_slot
 			closest_slot.swapping = true
+			dragged_item.visible = true
 		else:
 			dragged_item.get_parent().swapping = false
 			dragged_item.reparent(closest_slot)
@@ -83,6 +85,5 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				pass
 			
 			origin_slot.slot_item = null
-		
-		
-
+			
+	dragged_item.visible = true

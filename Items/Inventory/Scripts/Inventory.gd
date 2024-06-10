@@ -4,6 +4,7 @@ extends Control
 @onready var inventory_ui = $InventoryUI
 
 const MAX_SLOTS = 24
+const SLOT_SIZE = 48
 
 var items_to_load := [
 	"res://Items/Resources/dagger.tres",
@@ -13,7 +14,7 @@ var items_to_load := [
 func _ready():
 	for i in MAX_SLOTS:
 		var slot := InventorySlot.new()
-		slot.init(ItemData.ItemType.MAIN, Vector2(32, 32))
+		slot.init(ItemData.ItemType.MAIN, Vector2(SLOT_SIZE, SLOT_SIZE))
 		grid.add_child(slot)
 	for i in items_to_load.size():
 		var item = InventoryItem.new()
