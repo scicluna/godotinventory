@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm2i18dgkqpoy"]
+[gd_scene load_steps=8 format=3 uid="uid://bm2i18dgkqpoy"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_o7lua"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="1_o7lua"]
 [ext_resource type="PackedScene" uid="uid://du8sh5k1bhnru" path="res://Items/Inventory/Inventory.tscn" id="2_vcbjm"]
+[ext_resource type="PackedScene" uid="uid://r4y3jg4r13bf" path="res://Player/WeaponArm/WeaponArm.tscn" id="3_4018s"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ddiv2"]
 
@@ -37,6 +38,9 @@ shape = SubResource("ConvexPolygonShape3D_kqgry")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.53928, -0.212922)
 current = true
 far = 1000.0
+
+[node name="WeaponArm" parent="Neck/Camera3D" instance=ExtResource("3_4018s")]
+transform = Transform3D(-0.113027, -0.30865, 0.618029, -0.353894, 0.5637, 0.216796, -0.593282, -0.277447, -0.247061, 0.288873, -0.336915, -0.508601)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

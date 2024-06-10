@@ -19,6 +19,7 @@ var dashing = false
 
 # dependencies (plug in modules)
 @onready var inventory = $Inventory
+@onready var weapon_arm = $Neck/Camera3D/WeaponArm
 @onready var movement_abilities: Array[Movement] = []
 
 # stats
@@ -130,7 +131,7 @@ func cap_speed():
 			velocity.z *= speed_ratio
 
 func equip_weapon(new_weapon: WeaponData):
-	print("equipped: ", new_weapon)
+	weapon_arm.equip_weapon(new_weapon)
 	pass
 	
 func unequip_weapon():

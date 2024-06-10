@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dwjxduidk6q0b"
-path="res://.godot/imported/dagger3.glb-43d0978987ea6a268f88e6feb558cdd8.scn"
+uid="uid://cyf2ey4jkg1mv"
+path="res://.godot/imported/dagger.glb-ada6a9f8c504a24774426ceaecbb7445.scn"
 
 [deps]
 
-source_file="res://Items/Resources/Models/dagger/dagger3.glb"
-dest_files=["res://.godot/imported/dagger3.glb-43d0978987ea6a268f88e6feb558cdd8.scn"]
+source_file="res://Items/Resources/Models/dagger/dagger.glb"
+dest_files=["res://.godot/imported/dagger.glb-ada6a9f8c504a24774426ceaecbb7445.scn"]
 
 [params]
 

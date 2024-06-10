@@ -18,13 +18,14 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	var item_instance = dragged_item.data.item_texture.duplicate(true).instantiate()	
 	
 	var forward_vector = -camera.global_transform.basis.z.normalized()
-	var drop_position = camera.global_transform.origin + (forward_vector * 1.0)  # Drop the item 1 unit in front of the camera
-	drop_position.y = player.global_transform.origin.y  # Keep the drop height consistent with the player's position
+	var drop_position = camera.global_transform.origin + (forward_vector * 2.5)  # Drop the item 1 unit in front of the camera
+	drop_position.y = player.global_transform.origin.y + 1.25  # Keep the drop height consistent with the player's position
 	
 	item_instance.position = drop_position
 
 	#spawn item model in the world
 	item_instance.data = dragged_item.data
+	
 	player.get_parent().add_child(item_instance)
 	dragged_item.get_parent().remove_child(dragged_item)
 
