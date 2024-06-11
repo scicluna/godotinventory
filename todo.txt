@@ -1,0 +1,8 @@
+Todos:
+
+- Make Interactables base class
+- Make Grounded Items/Weapons interactable (via areas?)
+- Make and test Equipment
+- Create stat updates
+- Make Hotbar
+- Allow Equip on Right Click
