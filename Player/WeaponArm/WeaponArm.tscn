@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://r4y3jg4r13bf"]
-
-[ext_resource type="Script" path="res://Player/WeaponArm/WeaponArm.gd" id="1_pctts"]
-
-[node name="WeaponArm" type="Node3D"]
-script = ExtResource("1_pctts")

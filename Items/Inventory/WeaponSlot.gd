@@ -22,4 +22,4 @@ func equip_item(new_item: Variant) -> void:
 	if new_item != null and new_item.data is WeaponData:
 		player.equip_weapon(new_item.data)
 	else:
-		player.equip_weapon(new_item)
+		player.equip_weapon(null)

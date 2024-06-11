@@ -13,6 +13,7 @@ offset_right = 2.0
 script = ExtResource("1_2yqjw")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="UIControl" type="Control" parent="InventoryUI"]
 layout_mode = 3

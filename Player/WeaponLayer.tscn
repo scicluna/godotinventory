@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr5f36w23ks8e"]
+
+[ext_resource type="Script" path="res://Player/Scripts/Weapon.gd" id="1_oqq0n"]
+[ext_resource type="Script" path="res://Player/Scripts/HitBox.gd" id="2_lsjq1"]
+
+[node name="WeaponLayer" type="Node3D"]
+script = ExtResource("1_oqq0n")
+
+[node name="HitBox" type="RayCast3D" parent="."]
+transform = Transform3D(1, 2.98023e-08, 0, -2.98023e-08, 1, -1.49012e-08, 0, 4.47035e-08, 1, 0, 0, 0.05)
+target_position = Vector3(0, -1, -20)
+debug_shape_thickness = 5
+script = ExtResource("2_lsjq1")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true

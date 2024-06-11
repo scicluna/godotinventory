@@ -12,30 +12,19 @@ const gravity = 12.50
 const AIR_DECELERATION = 8.0
 const JUMP_VELOCITY = 6
 
+# camera nodes
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 
+# dependencies (plug in modules)
+@onready var inventory = $Inventory/InventoryUI
+@onready var weapon_layer = $Neck/Camera3D/WeaponLayer
+
+# movement flags
 var dashing = false
 
-# dependencies (plug in modules)
-@onready var inventory = $Inventory
-@onready var weapon_arm = $Neck/Camera3D/WeaponArm
-@onready var movement_abilities: Array[Movement] = []
-
-# stats
-var base_stats := {
-	"STR": 0,
-	"AGI": 0,
-	"STA": 0,
-	"INT": 0
-}
-
-var bonus_stats := {
-	"STR": 0,
-	"AGI": 0,
-	"STA": 0,
-	"INT": 0
-}
+# player stats
+@export var player_stats: PlayerStats
 
 # equipment
 var equipped_weapon: WeaponData
@@ -44,6 +33,9 @@ var equipped_chest: EquipmentData
 var equipped_legs: EquipmentData
 var equipped_feet: EquipmentData
 var equipped_accessory: EquipmentData
+
+# abilities
+var movement_abilities: Array[Movement]
 
 # start logic
 func _ready():
@@ -78,13 +70,13 @@ func _input(event: InputEvent) -> void:
 			camera.rotate_x(-event.relative.y * 0.01)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 			
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not inventory_open:
-		#if event.pressed:
-			#if weapon_arm.current_weapon:
-				#weapon_arm.current_weapon.attack(null)  # Pass in player stats if necessary
-			#else:
-				#if weapon_arm.current_weapon:
-					#weapon_arm.current_weapon.stop()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not inventory.visible:
+		if event.pressed:
+			if weapon_layer.weapon:
+				weapon_layer.weapon_attack(null)  # Pass in player stats if necessary
+			else:
+				if weapon_layer.weapon:
+					weapon_layer.stop()
 			
 	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and not inventory_open:
 		#if event.pressed:
@@ -131,7 +123,7 @@ func cap_speed():
 			velocity.z *= speed_ratio
 
 func equip_weapon(new_weapon: WeaponData):
-	weapon_arm.equip_weapon(new_weapon)
+	weapon_layer.equip_weapon(new_weapon)
 	pass
 	
 func unequip_weapon():

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PlayerStats" load_steps=2 format=3 uid="uid://cae1hujwohgg7"]
+
+[ext_resource type="Script" path="res://Player/Scripts/PlayerStats.gd" id="1_p0ha8"]
+
+[resource]
+script = ExtResource("1_p0ha8")
+base_stats = {
+"AGI": 0,
+"CHA": 0,
+"INT": 0,
+"STA": 0,
+"STR": 0
+}
+bonus_stats = {
+"AGI": 0,
+"CHA": 0,
+"INT": 0,
+"STA": 0,
+"STR": 0
+}
