@@ -1,16 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr5f36w23ks8e"]
+[gd_scene load_steps=5 format=3 uid="uid://cr5f36w23ks8e"]
 
-[ext_resource type="Script" path="res://Player/Scripts/Weapon.gd" id="1_oqq0n"]
+[ext_resource type="Script" path="res://Player/Scripts/WeaponLayer.gd" id="1_k67ak"]
 [ext_resource type="Script" path="res://Player/Scripts/HitBox.gd" id="2_lsjq1"]
+[ext_resource type="Script" path="res://Player/HitBox.gd" id="3_c3rnn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_loevy"]
+size = Vector3(1, 1, 2)
 
 [node name="WeaponLayer" type="Node3D"]
-script = ExtResource("1_oqq0n")
+script = ExtResource("1_k67ak")
 
-[node name="HitBox" type="RayCast3D" parent="."]
-transform = Transform3D(1, 2.98023e-08, 0, -2.98023e-08, 1, -1.49012e-08, 0, 4.47035e-08, 1, 0, 0, 0.05)
+[node name="HitRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99863, -0.052336, 0, 0.052336, 0.99863, 0, 0, 0.05)
 target_position = Vector3(0, -1, -20)
 debug_shape_thickness = 5
 script = ExtResource("2_lsjq1")
+
+[node name="HitBox" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.5)
+collision_layer = 3
+collision_mask = 2
+script = ExtResource("3_c3rnn")
+
+[node name="HitBoxShape" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_loevy")
 
 [node name="CooldownTimer" type="Timer" parent="."]
 one_shot = true

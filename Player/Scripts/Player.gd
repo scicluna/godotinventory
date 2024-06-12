@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Player
 
 # speed consts
 const MAX_SPEED = 8.0
