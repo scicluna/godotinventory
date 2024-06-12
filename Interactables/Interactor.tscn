@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp5p82b0b5j7j"]
+
+[ext_resource type="Script" path="res://Interactables/Interactor.gd" id="1_nos16"]
+
+[node name="Interactor" type="Node3D"]
+script = ExtResource("1_nos16")
+
+[node name="InteractionLayer" type="CanvasLayer" parent="."]
+
+[node name="Tooltip" type="Label" parent="InteractionLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = 41.0
+offset_right = 121.0
+offset_bottom = 241.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 50
+text = "E"

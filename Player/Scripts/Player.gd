@@ -17,8 +17,9 @@ const JUMP_VELOCITY = 6
 @onready var camera := $Neck/Camera3D
 
 # dependencies (plug in modules)
-@onready var inventory = $Inventory/InventoryUI
+@onready var inventory = $Inventory
 @onready var weapon_layer = $Neck/Camera3D/WeaponLayer
+@onready var interactor = $Interactor
 
 # movement flags
 var dashing = false
@@ -59,7 +60,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.pressed and not inventory.visible:
+	if event is InputEventMouseButton and event.pressed and not inventory.inventory_ui.visible:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	elif event.is_action_pressed("ui_cancel"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
@@ -70,7 +71,7 @@ func _input(event: InputEvent) -> void:
 			camera.rotate_x(-event.relative.y * 0.01)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 			
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not inventory.visible:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and not inventory.inventory_ui.visible:
 		if event.pressed:
 			if weapon_layer.weapon:
 				weapon_layer.weapon_attack(null)  # Pass in player stats if necessary

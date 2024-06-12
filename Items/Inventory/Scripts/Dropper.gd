@@ -27,11 +27,10 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	item_instance.data = dragged_item.data
 	
 	player.get_parent().add_child(item_instance)
-	dragged_item.get_parent().remove_child(dragged_item)
+	player.inventory.remove_item(origin_slot, dragged_item)
 
 	#check whether or not we need to unequip the item
 	if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
-		print("throw away item")
 		origin_slot.equip_item(null)
 		
 	origin_slot.slot_item = null

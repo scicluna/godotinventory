@@ -46,6 +46,7 @@ shadow_mesh = SubResource("ArrayMesh_ttph4")
 
 [node name="dagger" type="Node3D"]
 script = ExtResource("1_xt833")
+tooltip = "E to pickup"
 
 [node name="PixelArtObject" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_ij2yj")

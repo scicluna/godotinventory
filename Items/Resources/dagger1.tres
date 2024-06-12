@@ -10,6 +10,11 @@ script = ExtResource("3_036cb")
 attack_damage = 5
 attack_speed = 0.2
 attack_range = 3.0
+attack_area = {
+"x": 2.0,
+"y": 1.0,
+"z": 2.0
+}
 weapon_category = 0
 item_type = 0
 item_name = "Dagger2"

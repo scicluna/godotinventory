@@ -8,6 +8,7 @@ var swapping := false
 var origin_slot: InventorySlot
 var glowing := false
 var glow_shader_material: ShaderMaterial
+var stackable = true
 
 func _ready():
 	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
@@ -24,7 +25,7 @@ func _process(delta):
 func _on_mouse_exited():
 	if glowing:
 		fade_out_glow()
-	
+
 func _can_drop_data(_at_position, dragged_item) -> bool:
 	dragged_item.visible = false
 	if dragged_item and drop_is_valid(dragged_item):

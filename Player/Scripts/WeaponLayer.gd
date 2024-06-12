@@ -13,17 +13,14 @@ var weapon: WeaponData
 
 func equip_weapon(weapon_data: WeaponData):
 	# Clear Old Weapon
-	var old_weapon_node = get_node_or_null("WeaponArm/Weapon")
-
-	if old_weapon_node:
-		old_weapon_node.queue_free()  # Remove the old weapon node
-		weapon = null
+	var weapon = weapon_arm.get_children()
+	for child in weapon:
+		child.queue_free()
 		
 	# Equip New Weapon
 	if weapon_data:
 		weapon = weapon_data
 		var new_weapon_instance = weapon.item_texture.instantiate()
-		new_weapon_instance.name = "Weapon"
 		new_weapon_instance.equipped = true
 		weapon_arm.add_child(new_weapon_instance)
 		
