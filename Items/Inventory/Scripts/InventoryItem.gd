@@ -5,6 +5,7 @@ class_name InventoryItem
 
 const MAX_QUANTITY := 99
 var quantity := 1
+var item_label: Label
 
 func _ready() -> void:
 	if data:
@@ -12,11 +13,17 @@ func _ready() -> void:
 		self.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		self.texture = data.item_icon
 		self.tooltip_text = "%s\n%s\nDescription %s" % [data.item_name, data.item_type, data.description]
+		
+		item_label = Label.new()
+		item_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		item_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
+		item_label.custom_minimum_size = Vector2(64, 64)
+		self.add_child(item_label)
+		
 		update_quantity()
 		
-func init(item_data: ItemData) -> void:
-	data = item_data
-	
+
+
 func _get_drag_data(at_position: Vector2) -> Variant:
 	set_drag_preview(make_drag_preview(at_position))
 	return self
@@ -38,10 +45,7 @@ func make_drag_preview(at_position: Vector2) -> Control:
 	
 func update_quantity():
 	if data:
-		var item_label: Label = Label.new()
 		item_label.text = "x" + str(quantity)
-		item_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		item_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-		item_label.custom_minimum_size = Vector2(64, 64)
-		self.add_child(item_label)
+		if quantity <= 0:
+			self.queue_free()
 	

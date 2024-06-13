@@ -56,6 +56,8 @@ func remove_item(origin_slot: InventorySlot, inventory_item: InventoryItem, quan
 	for slot in slots:
 		if slot == origin_slot:
 			inventory_item.quantity -= quantity
+			inventory_item.visible = true
+			inventory_item.update_quantity()
 			if inventory_item.quantity <= 0:
 				origin_slot.remove_child(inventory_item)
 			return

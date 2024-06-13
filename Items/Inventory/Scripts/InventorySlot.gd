@@ -100,13 +100,12 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
 			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
 				origin_slot.equip_item(null)
-				pass
 
 			# if this slot is not in the main inventory... or the former slot was not in the main inventory...
 			if type != ItemData.ItemType.MAIN or slot_item.data.item_type != ItemData.ItemType.MAIN:
 				# Function to handle equipment changes
 				equip_item(dragged_item)
-				pass
+
 			# swap items
 			origin_slot = self
 			swapping = true
@@ -117,14 +116,10 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
 			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
 				origin_slot.equip_item(null)
-				pass
-			
+
 			if type != ItemData.ItemType.MAIN:
 				equip_item(dragged_item)
-				pass
-			
-			origin_slot.slot_item = null
-			
+
 	# Remove the glow after dropping
 	remove_glow()
 	dragged_item.visible = true
