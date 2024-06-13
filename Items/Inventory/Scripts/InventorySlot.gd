@@ -64,13 +64,13 @@ func _on_fade_out_complete() -> void:
 	
 func drop_is_valid(dragged_item: Variant) -> bool:
 	if dragged_item is InventoryItem:
-		if type == ItemData.ItemType.MAIN:
+		if type == ItemData.ItemType.MAIN or type == ItemData.ItemType.MSC:
 			if self.get_child_count() == 0:
 				return true
 			else:
 				if dragged_item.get_parent() and type == dragged_item.get_parent().type:
 					return true
-				return self.get_child(0).data.ItemType == dragged_item.data.ItemType
+				return self.get_child(0).data.item_type == dragged_item.data.item_type
 		else:
 			return dragged_item.data.item_type == type
 	return false
@@ -79,6 +79,12 @@ func drop_is_valid(dragged_item: Variant) -> bool:
 func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 
 	origin_slot = dragged_item.get_parent()
+	
+	# handle removals from hotbar
+	if origin_slot.type == ItemData.ItemType.MSC:
+		origin_slot.slot_item = null
+		origin_slot.remove_child(dragged_item)
+		return
 
 	if drop_is_valid(dragged_item):
 		

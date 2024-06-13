@@ -1,7 +1,7 @@
 extends Control
 
-@onready var grid = $InventoryUI/UIControl/Main/GridContainer
-@onready var inventory_ui = $InventoryUI
+@onready var grid = $InventoryUI/UIControl/PopupUI/Main/GridContainer
+@onready var inventory_ui = $InventoryUI/UIControl/PopupUI
 
 const MAX_SLOTS = 24
 const SLOT_SIZE = 48
@@ -45,6 +45,7 @@ func add_item(inventory_item_data: ItemData, quantity: int):
 	for slot in slots:
 		if slot.get_child_count() == 0:
 			var new_item = InventoryItem.new()
+			new_item.quantity = 1
 			new_item.data = inventory_item_data
 			
 			# Add item to slot

@@ -18,6 +18,7 @@ const JUMP_VELOCITY = 6
 
 # dependencies (plug in modules)
 @onready var inventory = $Inventory
+@onready var hotbar = $Inventory/InventoryUI/UIControl/HotBar/GridContainer
 @onready var weapon_layer = $Neck/Camera3D/WeaponLayer
 @onready var interactor = $Interactor
 
@@ -86,6 +87,12 @@ func _input(event: InputEvent) -> void:
 		#else:
 			#if weapon_arm.current_weapon:
 				#weapon_arm.current_weapon.stop()
+				
+	# hotbar actions
+	for child in hotbar.get_children():
+		if Input.is_action_just_pressed(child.name):
+			if child.slot_item:
+				child.slot_item.data.hotbar_action(self)
 				
 	for ability in movement_abilities:
 		ability.process_input(self, get_process_delta_time())

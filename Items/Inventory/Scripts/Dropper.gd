@@ -15,6 +15,13 @@ func drop_is_valid(closest_slot: Control, dragged_item: Variant) -> bool:
 # handle drop signal if dropped outside of the panels
 func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	var origin_slot = dragged_item.get_parent()
+	
+	# handle removals from hotbar
+	if origin_slot.type == ItemData.ItemType.MSC:
+		origin_slot.slot_item = null
+		origin_slot.remove_child(dragged_item)
+		return
+	
 	var item_instance = dragged_item.data.item_texture.duplicate(true).instantiate()	
 	
 	var forward_vector = -camera.global_transform.basis.z.normalized()

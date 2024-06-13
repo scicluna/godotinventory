@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://du8sh5k1bhnru"]
+[gd_scene load_steps=8 format=3 uid="uid://du8sh5k1bhnru"]
 
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/Inventory.gd" id="1_2yqjw"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/Dropper.gd" id="2_81wti"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/EquipmentSlot.gd" id="2_f7po3"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/InventoryPanel.gd" id="2_xashd"]
 [ext_resource type="Script" path="res://Items/Inventory/Scripts/WeaponSlot.gd" id="4_prnsi"]
+[ext_resource type="Script" path="res://Items/Inventory/Scripts/HotBarSlot.gd" id="6_l6g54"]
+[ext_resource type="Script" path="res://Items/Inventory/Scripts/HotBarLabel.gd" id="7_sncpr"]
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
@@ -13,7 +15,6 @@ offset_right = 2.0
 script = ExtResource("1_2yqjw")
 
 [node name="InventoryUI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="UIControl" type="Control" parent="InventoryUI"]
 layout_mode = 3
@@ -23,47 +24,57 @@ offset_right = -0.1521
 offset_bottom = -1.94403
 script = ExtResource("2_81wti")
 
-[node name="Main" type="Panel" parent="InventoryUI/UIControl"]
+[node name="PopupUI" type="Control" parent="InventoryUI/UIControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.0
+
+[node name="Main" type="Panel" parent="InventoryUI/UIControl/PopupUI"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.049
-anchor_top = 0.543
+anchor_top = 0.531
 anchor_right = 0.347
-anchor_bottom = 0.938
-offset_left = -0.497002
-offset_top = 0.135986
-offset_right = -0.0910034
-offset_bottom = -23.824
+anchor_bottom = 0.889
+offset_left = -0.447998
+offset_top = -0.0880127
+offset_right = -0.0419922
+offset_bottom = -0.0718994
 script = ExtResource("2_xashd")
+metadata/_edit_group_ = true
 
-[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/Main"]
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/PopupUI/Main"]
 layout_mode = 2
 anchor_left = 0.023
 anchor_top = 0.031
 anchor_right = 0.023
 anchor_bottom = 0.031
-offset_left = 0.0879993
-offset_top = 0.808
-offset_right = 328.088
+offset_left = 0.0948544
+offset_top = 0.807996
+offset_right = 328.095
 offset_bottom = 216.808
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
 
-[node name="Equips" type="Panel" parent="InventoryUI/UIControl"]
+[node name="Equips" type="Panel" parent="InventoryUI/UIControl/PopupUI"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.049
-anchor_top = 0.432
+anchor_top = 0.42
 anchor_right = 0.347
-anchor_bottom = 0.531
-offset_left = -0.497002
-offset_top = 0.0639954
-offset_right = -0.0910034
-offset_bottom = -0.0880127
+anchor_bottom = 0.519
+offset_left = -0.447998
+offset_top = -0.160004
+offset_right = -0.0419922
+offset_bottom = -0.312042
 script = ExtResource("2_xashd")
+metadata/_edit_group_ = true
 
-[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/Equips"]
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/PopupUI/Equips"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 8.0
@@ -74,41 +85,223 @@ theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 columns = 6
 
-[node name="Weapon" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
+[node name="Weapon" type="PanelContainer" parent="InventoryUI/UIControl/PopupUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("4_prnsi")
 
-[node name="Head" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
+[node name="Head" type="PanelContainer" parent="InventoryUI/UIControl/PopupUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 type = 1
 
-[node name="Chest" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
+[node name="Chest" type="PanelContainer" parent="InventoryUI/UIControl/PopupUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 1
 type = 1
 
-[node name="Legs" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
+[node name="Legs" type="PanelContainer" parent="InventoryUI/UIControl/PopupUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 2
 type = 1
 
-[node name="Feet" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
+[node name="Feet" type="PanelContainer" parent="InventoryUI/UIControl/PopupUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 3
 type = 1
 
-[node name="Accessory" type="PanelContainer" parent="InventoryUI/UIControl/Equips/GridContainer"]
+[node name="Accessory" type="PanelContainer" parent="InventoryUI/UIControl/PopupUI/Equips/GridContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("2_f7po3")
 equipment_type = 4
 type = 1
+
+[node name="HotBar" type="Panel" parent="InventoryUI/UIControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.901
+anchor_right = 0.541
+anchor_bottom = 1.0
+offset_top = 0.151978
+offset_right = 0.22699
+mouse_filter = 1
+script = ExtResource("2_xashd")
+
+[node name="GridContainer" type="GridContainer" parent="InventoryUI/UIControl/HotBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 624.0
+offset_bottom = 56.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 11
+
+[node name="hotbar_1" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_2" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_3" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_4" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_5" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_6" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_7" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_8" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_9" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_10" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="hotbar_11" type="PanelContainer" parent="InventoryUI/UIControl/HotBar/GridContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("6_l6g54")
+slot_number = 1
+type = 3
+
+[node name="LabelGrid" type="GridContainer" parent="InventoryUI/UIControl/HotBar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 504.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 11
+
+[node name="hotbar_1" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 1
+
+[node name="hotbar_2" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 2
+
+[node name="hotbar_3" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 3
+
+[node name="hotbar_4" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 4
+
+[node name="hotbar_5" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 5
+
+[node name="hotbar_6" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 6
+
+[node name="hotbar_7" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 7
+
+[node name="hotbar_8" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 8
+
+[node name="hotbar_9" type="Label" parent="InventoryUI/UIControl/HotBar/LabelGrid"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+vertical_alignment = 2
+script = ExtResource("7_sncpr")
+slot_number = 9
