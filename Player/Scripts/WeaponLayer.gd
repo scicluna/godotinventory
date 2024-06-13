@@ -13,8 +13,8 @@ var weapon: WeaponData
 
 func equip_weapon(weapon_data: WeaponData):
 	# Clear Old Weapon
-	var weapon = weapon_arm.get_children()
-	for child in weapon:
+	var current_weapon = weapon_arm.get_children()
+	for child in current_weapon:
 		child.queue_free()
 		
 	# Equip New Weapon

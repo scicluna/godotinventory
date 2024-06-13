@@ -1,8 +1,11 @@
 Todos:
 
-- Make Interactables base class
-- Make Grounded Items/Weapons interactable (via areas?)
+- Fix various stack and equipment slot interactions
 - Make and test Equipment
 - Create stat updates
 - Make Hotbar
+- Allow Equip on Hotbar Press
 - Allow Equip on Right Click
+
+- Figure out how 3rd floor will actually work
+- Scene Based? Kind of makes sense

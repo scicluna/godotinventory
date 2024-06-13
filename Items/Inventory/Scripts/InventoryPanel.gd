@@ -4,7 +4,8 @@ class_name InventoryPanel
 @onready var grid_container := $GridContainer
 var origin_slot: InventorySlot
 
-func _can_drop_data(_at_position, _data) -> bool:
+func _can_drop_data(_at_position, dragged_item) -> bool:
+	dragged_item.visible = false
 	return true
 	
 func drop_is_valid(closest_slot: Control, dragged_item: Variant) -> bool:
@@ -34,56 +35,57 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			closest_slot = slot
 			closest_distance = distance
 			
-	# if this slot is occupied...
+	# if we found a closest slot and its valid
 	if closest_slot and drop_is_valid(closest_slot, dragged_item):
 		
 		origin_slot = dragged_item.get_parent()
-		
-		# if this slot is occupied...
-		if closest_slot.get_child_count() > 0:
 
-			# record the item we just dropped on
-			if dragged_item != closest_slot.get_child(0):
-				closest_slot.slot_item = closest_slot.get_child(0)
-			else:
-				closest_slot.slot_item = closest_slot.get_child(-1)
-				
-			# add dragged item to the slot
-			dragged_item.reparent(closest_slot)
-				
+		# if this slot is occupied...
+		if closest_slot.slot_item:
+		
 			# early return if the references are to the same item
-			if dragged_item == closest_slot.slot_item:
+			if dragged_item.data == closest_slot.slot_item.data:
 				dragged_item.visible = true
 				return
-				
-			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
-			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
-				origin_slot.equip_item(null)
-				pass
+			
+			# add dragged item to the slot
+			dragged_item.reparent(closest_slot)
 
-			# if this slot is not in the main inventory... or the former slot was not in the main inventory...
-			if closest_slot.type != ItemData.ItemType.MAIN or closest_slot.slot_item.data.item_type != ItemData.ItemType.MAIN:
-				# Function to handle equipment changes
-				closest_slot.equip_item(dragged_item)
-				pass
-				
+			# change dragging_item to the now former slot item
+			closest_slot.dragging_item = closest_slot.slot_item
+			
+			# slot_item now points to the item we had been dragging
+			closest_slot.slot_item = dragged_item
+			
+			# if not swapping
+			if not closest_slot.swapping:
+				origin_slot.slot_item = null
+
 			# swap items
-			origin_slot = closest_slot
+			closest_slot.origin_slot = closest_slot
 			closest_slot.swapping = true
-			dragged_item.visible = true
-		else:
-			dragged_item.get_parent().swapping = false
+		else:			
+			# add dragged item to the slot
 			dragged_item.reparent(closest_slot)
 			
-			# if the origin slot is empty, and the slot type of the origin was an equipment slot... unequip the item.
-			if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
-				origin_slot.equip_item(null)
-				pass
+			# if origin slot was an equipment item...
+			if origin_slot.type != ItemData.ItemType.MAIN:
+				
+				# if we didn't just swap equipment...
+				if not origin_slot.swapping:
+					origin_slot.equip_item(null)
+					origin_slot.slot_item = null
+					
+			# if origin slot was not an equipment item...	
+			else:
+				origin_slot.slot_item = null
+				
+			# slot_item now points to the item we had been dragging
+			closest_slot.slot_item = dragged_item
 			
-			if closest_slot.type != ItemData.ItemType.MAIN:
-				closest_slot.equip_item(dragged_item)
-				pass
+			# turn off swapping
+			origin_slot.swapping = false
 			
-			origin_slot.slot_item = null
-			
+	# Remove the glow after dropping
+	closest_slot.remove_glow()
 	dragged_item.visible = true

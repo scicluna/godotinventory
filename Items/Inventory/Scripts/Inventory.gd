@@ -46,6 +46,9 @@ func add_item(inventory_item_data: ItemData, quantity: int):
 		if slot.get_child_count() == 0:
 			var new_item = InventoryItem.new()
 			new_item.data = inventory_item_data
+			
+			# Add item to slot
+			slot.slot_item = new_item
 			slot.add_child(new_item)
 			return
 		
