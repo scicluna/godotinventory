@@ -33,5 +33,4 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
 		origin_slot.equip_item(null)
 		
-	origin_slot.slot_item = null
 	origin_slot.swapping = false

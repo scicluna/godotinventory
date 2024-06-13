@@ -22,8 +22,6 @@ func _ready() -> void:
 		
 		update_quantity()
 		
-
-
 func _get_drag_data(at_position: Vector2) -> Variant:
 	set_drag_preview(make_drag_preview(at_position))
 	return self

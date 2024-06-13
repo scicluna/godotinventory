@@ -84,11 +84,32 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 		
 		# if this slot is occupied...
 		if self.slot_item:
-			
+		
 			# early return if the references are to the same item
 			if dragged_item.data == slot_item.data:
-				dragged_item.visible = true
-				return
+				
+				#if not from the same slots...
+				if origin_slot != self:
+					
+					#try to stack them
+					slot_item.quantity += dragged_item.quantity
+					
+					#if overflow
+					if slot_item.quantity > slot_item.MAX_QUANTITY:
+						dragged_item.quantity = slot_item.quantity - slot_item.MAX_QUANTITY
+						slot_item.quantity = slot_item.MAX_QUANTITY
+						slot_item.update_quantity()
+						dragged_item.update_quantity()
+					#if combined successfully
+					else:
+						slot_item.update_quantity()
+						origin_slot.slot_item = null
+						origin_slot.remove_child(dragged_item)
+						dragged_item.visible = true
+						return
+				else:
+					dragged_item.visible = true
+					return
 				
 			# add dragged item to the slot
 			dragged_item.reparent(self)
@@ -98,13 +119,18 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			
 			# slot_item now points to the item we had been dragging
 			slot_item = dragged_item
-			
-			# if not swapping
-			if not swapping:
+
+			# if swapping with an equipment slot
+			if origin_slot.type != ItemData.ItemType.MAIN:
+				# if we didn't just swap equipment...
+				if not origin_slot.swapping:
+					origin_slot.equip_item(null)
+
+			# set original slot to null, since we are now dragging it.
+			if self != origin_slot:
 				origin_slot.slot_item = null
 			
 			# swap items
-			origin_slot = self
 			swapping = true
 		else:			
 			# add dragged item to the slot
@@ -120,7 +146,8 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 					
 			# if origin slot was not an equipment item...	
 			else:
-				origin_slot.slot_item = null
+				if not origin_slot.swapping:
+					origin_slot.slot_item = null
 				
 			# slot_item now points to the item we had been dragging
 			slot_item = dragged_item
