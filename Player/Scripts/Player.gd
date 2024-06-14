@@ -134,6 +134,46 @@ func equip_weapon(new_weapon: WeaponData):
 	equipped_weapon = new_weapon
 	weapon_layer.equip_weapon(new_weapon)
 
+# todo: sift through inventory for item -> grab the referenced slot -> deduct one -> add to slot -> if slot was full -> have slot re-added to inventory -> equip weapon
+
+func quick_equip_weapon(new_weapon: WeaponData) -> void:
+	# sift inventory for item and get slot reference
+	var slot = inventory.get_slot(new_weapon)
+
+	# if slot is not found, return early
+	if not slot:
+		return
+		
+	# if slot is swapping for some reason, return early
+	if inventory.swapping:
+		return
+		
+	# deduct one from the slot item
+	slot.slot_item.quantity -= 1
+	slot.slot_item.update_quantity()
+	
+	# if the weapon slot is already full...
+	var target_slot = inventory.get_equipment_slot(ItemData.ItemType.WEAPON)
+	if target_slot.slot_item:
+		var temp_item_data = target_slot.slot_item.data
+		target_slot.slot_item = null
+		target_slot.clear_slot()
+		inventory.add_item(temp_item_data)
+		
+		print("empty the target slot and add the item to inventory")
+	
+	# add the weapon to weapon slot
+	var new_item = InventoryItem.new()
+	new_item.quantity = 1
+	new_item.data = new_weapon
+	target_slot.slot_item = new_item
+	target_slot.add_child(new_item)
+	
+	# equip the weapon
+	equip_weapon(new_weapon)
+	
+	
+
 func unequip_weapon():
 	print("unequipped weapon")
 

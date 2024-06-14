@@ -3,6 +3,9 @@ class_name HotBarSlot
 
 @export var slot_number := 0
 
+func _ready():
+	parent_inventory = get_parent().get_parent().get_parent().get_parent().get_parent()
+
 # handle drop signal
 func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	
@@ -42,5 +45,5 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 
 	# Remove the glow after dropping
 	self.remove_glow()
-	if not swapping:
+	if not parent_inventory.swapping:
 		dragged_item.visible = true

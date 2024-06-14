@@ -48,5 +48,5 @@ func update_quantity():
 		item_label.text = str(quantity)
 		
 		if quantity <= 0:
-			self.queue_free()
+			self.get_parent().remove_child(self)
 	

@@ -42,12 +42,12 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			equip_item(dragged_item)
 			
 						# if not swapping
-			if not swapping:
+			if not parent_inventory.swapping:
 				origin_slot.slot_item = null
 		
 			# swap items
 			origin_slot = self
-			swapping = true
+			parent_inventory.swapping = true
 		else:
 			# add dragged item to the slot
 			dragged_item.reparent(self)

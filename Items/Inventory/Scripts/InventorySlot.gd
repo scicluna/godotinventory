@@ -9,10 +9,13 @@ var origin_slot: InventorySlot
 var glow_shader_material: ShaderMaterial
 
 var glowing := false
-var swapping := false
 var stackable := true
 
+var parent_inventory
+
 func _ready():
+	parent_inventory = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
+	print(self, parent_inventory)
 	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 
 func init(item_type: ItemData.ItemType, custom_min_size: Vector2) -> void:
@@ -20,8 +23,8 @@ func init(item_type: ItemData.ItemType, custom_min_size: Vector2) -> void:
 	self.custom_minimum_size = custom_min_size
 	
 func _process(delta):
-	if swapping and dragging_item:
-		dragging_item.force_drag(dragging_item, dragging_item.make_drag_preview(Vector2(0,0)))
+	if parent_inventory.swapping and is_instance_valid(parent_inventory.dragging_item) and parent_inventory.dragging_item:
+		parent_inventory.dragging_item.force_drag(parent_inventory.dragging_item, parent_inventory.dragging_item.make_drag_preview(Vector2(0,0)))
 		
 # Slot Glowing Logic
 func _on_mouse_exited():
@@ -89,14 +92,13 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	if drop_is_valid(dragged_item):
 		
 		# if this slot is occupied...
-		if self.slot_item:
-		
+		if is_instance_valid(self.slot_item):
 			# early return if the references are to the same item
 			if dragged_item.data == slot_item.data:
 				
 				#if not from the same slots...
 				if origin_slot != self:
-					
+
 					#try to stack them
 					slot_item.quantity += dragged_item.quantity
 					
@@ -108,6 +110,9 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 						dragged_item.update_quantity()
 					#if combined successfully
 					else:
+						if origin_slot.type != ItemData.ItemType.MAIN:
+							origin_slot.equip_item(null)
+							
 						slot_item.update_quantity()
 						origin_slot.slot_item = null
 						origin_slot.remove_child(dragged_item)
@@ -121,7 +126,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			dragged_item.reparent(self)
 
 			# change dragging_item to the now former slot item
-			dragging_item = slot_item
+			parent_inventory.dragging_item = slot_item
 			
 			# slot_item now points to the item we had been dragging
 			slot_item = dragged_item
@@ -129,7 +134,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# if swapping with an equipment slot
 			if origin_slot.type != ItemData.ItemType.MAIN:
 				# if we didn't just swap equipment...
-				if not origin_slot.swapping:
+				if not parent_inventory.swapping:
 					origin_slot.equip_item(null)
 
 			# set original slot to null, since we are now dragging it.
@@ -137,7 +142,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				origin_slot.slot_item = null
 			
 			# swap items
-			swapping = true
+			parent_inventory.swapping = true
 		else:			
 			# add dragged item to the slot
 			dragged_item.reparent(self)
@@ -146,20 +151,22 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			if origin_slot.type != ItemData.ItemType.MAIN:
 				
 				# if we didn't just swap equipment...
-				if not origin_slot.swapping:
+				if not parent_inventory.swapping:
 					origin_slot.equip_item(null)
 					origin_slot.slot_item = null
 					
 			# if origin slot was not an equipment item...	
 			else:
-				if not origin_slot.swapping:
+				if not parent_inventory.swapping:
 					origin_slot.slot_item = null
 				
 			# slot_item now points to the item we had been dragging
 			slot_item = dragged_item
 			
 			# turn off swapping
-			origin_slot.swapping = false
+			parent_inventory.dragging_item = null
+			parent_inventory.swapping = false
+			
 			
 	# Remove the glow after dropping
 	remove_glow()
@@ -168,3 +175,13 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 # Implement in sub-classes		
 func equip_item(new_item: Variant) -> void:
 	pass
+
+func clear_slot():
+	if slot_item:
+		slot_item = null
+	
+	var children = self.get_children()
+	if children.size():
+		for child in children:
+			child.queue_free()
+		

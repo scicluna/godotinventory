@@ -28,6 +28,7 @@ func equip_weapon(weapon_data: WeaponData):
 		hit_box.update_area(weapon.attack_area)
 		hit_ray.update_range(weapon.attack_range)
 
+
 func stop():
 	animation_player.stop()
 

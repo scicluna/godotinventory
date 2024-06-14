@@ -1,10 +1,15 @@
 extends Control
+class_name InventoryControl
 
 @onready var grid = $InventoryUI/UIControl/PopupUI/Main/GridContainer
+@onready var equipment_grid = $InventoryUI/UIControl/PopupUI/Equips/GridContainer
 @onready var inventory_ui = $InventoryUI/UIControl/PopupUI
 
 const MAX_SLOTS = 24
 const SLOT_SIZE = 48
+
+var swapping = false
+var dragging_item: InventoryItem
 
 var items_to_load := [
 	"res://Items/Resources/dagger.tres",
@@ -31,7 +36,7 @@ func _input(event: InputEvent) -> void:
 func _can_drop_data(at_position, data):
 	return true
 
-func add_item(inventory_item_data: ItemData, quantity: int):
+func add_item(inventory_item_data: ItemData, quantity: int = 1) -> void:
 	var slots = grid.get_children()
 	
 	# First try to add to existing slots with the same item
@@ -52,7 +57,7 @@ func add_item(inventory_item_data: ItemData, quantity: int):
 			slot.slot_item = new_item
 			slot.add_child(new_item)
 			return
-		
+			
 func remove_item(origin_slot: InventorySlot, inventory_item: InventoryItem, quantity: int = 1) -> void:
 	# get inventory
 	var slots = origin_slot.get_parent().get_children()
@@ -66,3 +71,28 @@ func remove_item(origin_slot: InventorySlot, inventory_item: InventoryItem, quan
 				origin_slot.remove_child(inventory_item)
 				origin_slot.slot_item = null
 			return
+			
+func get_slot(item_data: ItemData) -> InventorySlot:
+	var slots = grid.get_children()
+	
+	for slot in slots:
+		var slotted_item = slot.get_child(0) if slot.get_children().size() > 0 else null
+		if slotted_item != null and slotted_item.data == item_data:
+			return slot
+	
+	return null
+
+func get_equipment_slot(enum_type: ItemData.ItemType, equip_type = null) -> InventorySlot:
+	var slots = equipment_grid.get_children()
+	
+	for slot in slots:
+		if slot.type == enum_type:
+			if equip_type != null:
+				if slot.type == equip_type:
+					return slot
+				else:
+					pass
+			else:
+				return slot
+	
+	return null

@@ -30,6 +30,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				return
 				
 			if dragged_item.quantity > 1:
+				
 				# Reduce the quantity of the dragged item by 1
 				dragged_item.quantity -= 1
 				dragged_item.update_quantity()
@@ -41,29 +42,29 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				self.add_child(new_item)
 				
 				# change dragging_item to the now former slot item
-				dragging_item = slot_item
+				parent_inventory.dragging_item = slot_item
 			
 				# slot_item now points to the item we had been dragging and is equipped
-				slot_item = new_item
+				self.slot_item = new_item
 				equip_item(new_item)
 			else:
 				# add dragged item to the slot
 				dragged_item.reparent(self)
 			
 				# change dragging_item to the now former slot item
-				dragging_item = slot_item
+				parent_inventory.dragging_item = slot_item
 			
 				# slot_item now points to the item we had been dragging and is equipped
 				slot_item = dragged_item
 				equip_item(dragged_item)
 			
 				# if not swapping
-				if not swapping:
+				if not parent_inventory.swapping:
 					origin_slot.slot_item = null
 		
 			# swap items
 			origin_slot = self
-			swapping = true
+			parent_inventory.swapping = true
 		else:
 			if dragged_item.quantity > 1:
 				# Reduce the quantity of the dragged item by 1
@@ -79,23 +80,26 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				# slot_item now points to the item we had been dragging and is equipped
 				slot_item = new_item
 				equip_item(new_item)
-				
+				 
+				# if we were swapping - update the dragging item and make sure that origin_slot still has slot item
+				if parent_inventory.swapping:
+					parent_inventory.dragging_item = dragged_item
+					return
 			else:
 				# add dragged item to the slot
 				dragged_item.reparent(self)
-				origin_slot.slot_item = null
 				
 				# slot_item now points to the item we had been dragging and is equipped
 				slot_item = dragged_item
 				equip_item(dragged_item)
 
 				# if we didn't just swap equipment...
-				if not swapping:
+				if not parent_inventory.swapping:
 					origin_slot.equip_item(null)
 					origin_slot.slot_item = null
 			
 			# turn off swapping
-			origin_slot.swapping = false
+			parent_inventory.swapping = false
 
 	# Remove the glow after dropping
 	remove_glow()
