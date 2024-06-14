@@ -35,7 +35,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			dragged_item.reparent(self)
 			
 			# change dragging_item to the now former slot item
-			dragging_item = slot_item
+			parent_inventory.dragging_item = slot_item
 			
 			# slot_item now points to the item we had been dragging and is equipped
 			slot_item = dragged_item

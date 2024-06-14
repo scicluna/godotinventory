@@ -1,11 +1,23 @@
 Todos:
 
 - Fix various stack and equipment slot interactions
-- Make and test Equipment
-- Create stat updates
 - Make Hotbar
 - Allow Equip on Hotbar Press
 - Allow Equip on Right Click
+--- done?
 
-- Figure out how 3rd floor will actually work
-- Scene Based? Kind of makes sense
+- Equipmenht SLot Logic
+- Make and test Equipment
+- Create stat updates
+- Hoist Down Inventory Related Things into the Inventory Scene and out of Player so that Inventory stands alone for the most part
+- Clean up Code
+
+- 3rd floor - Scenes and Extras
+- Prepare Main Scenes for First Session
+- Create Catalog of "Extras" for if the party gets off track
+
+
+
+
++ molten impact?
+- blink things?

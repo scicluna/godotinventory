@@ -23,6 +23,8 @@ func _ready() -> void:
 	self.update_quantity()
 		
 func _get_drag_data(at_position: Vector2) -> Variant:
+	if not get_parent().parent_inventory.dragging_item:
+		get_parent().parent_inventory.dragging_item = self
 	set_drag_preview(make_drag_preview(at_position))
 	return self
 	
@@ -49,4 +51,5 @@ func update_quantity():
 		
 		if quantity <= 0:
 			self.get_parent().remove_child(self)
+			
 	

@@ -136,12 +136,17 @@ func equip_weapon(new_weapon: WeaponData):
 
 # todo: sift through inventory for item -> grab the referenced slot -> deduct one -> add to slot -> if slot was full -> have slot re-added to inventory -> equip weapon
 
-func quick_equip_weapon(new_weapon: WeaponData) -> void:
+func quick_equip(new_data: ItemData) -> void:
 	# sift inventory for item and get slot reference
-	var slot = inventory.get_slot(new_weapon)
+	var slot = inventory.get_slot(new_data)
 
+	print("quick equip")
 	# if slot is not found, return early
 	if not slot:
+		return
+		
+	# if there's no item in the slot, return
+	if not slot.slot_item:
 		return
 		
 	# if slot is swapping for some reason, return early
@@ -151,27 +156,30 @@ func quick_equip_weapon(new_weapon: WeaponData) -> void:
 	# deduct one from the slot item
 	slot.slot_item.quantity -= 1
 	slot.slot_item.update_quantity()
-	
+
 	# if the weapon slot is already full...
-	var target_slot = inventory.get_equipment_slot(ItemData.ItemType.WEAPON)
+	var equipment_type = new_data.equipment_type if new_data is EquipmentData else null
+	var target_slot = inventory.get_equipment_slot(new_data.item_type, equipment_type)
 	if target_slot.slot_item:
 		var temp_item_data = target_slot.slot_item.data
 		target_slot.slot_item = null
 		target_slot.clear_slot()
 		inventory.add_item(temp_item_data)
-		
-		print("empty the target slot and add the item to inventory")
 	
 	# add the weapon to weapon slot
-	var new_item = InventoryItem.new()
-	new_item.quantity = 1
-	new_item.data = new_weapon
-	target_slot.slot_item = new_item
-	target_slot.add_child(new_item)
+	var item = InventoryItem.new()
+	item.quantity = 1
+	item.data = new_data
+	target_slot.slot_item = item
+	target_slot.add_child(item)
 	
 	# equip the weapon
-	equip_weapon(new_weapon)
+	if new_data.item_type == ItemData.ItemType.WEAPON:
+		equip_weapon(new_data)
 	
+	# if slot is now empty, clear it
+	if slot.slot_item.quantity <= 0:
+		slot.slot_item = null
 	
 
 func unequip_weapon():

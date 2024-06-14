@@ -4,7 +4,6 @@ class_name InventorySlot
 @export var type: ItemData.ItemType
 
 var slot_item: InventoryItem
-var dragging_item: InventoryItem
 var origin_slot: InventorySlot
 var glow_shader_material: ShaderMaterial
 
@@ -15,17 +14,12 @@ var parent_inventory
 
 func _ready():
 	parent_inventory = get_parent().get_parent().get_parent().get_parent().get_parent().get_parent()
-	print(self, parent_inventory)
 	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
-
+		
 func init(item_type: ItemData.ItemType, custom_min_size: Vector2) -> void:
 	type = item_type
 	self.custom_minimum_size = custom_min_size
 	
-func _process(delta):
-	if parent_inventory.swapping and is_instance_valid(parent_inventory.dragging_item) and parent_inventory.dragging_item:
-		parent_inventory.dragging_item.force_drag(parent_inventory.dragging_item, parent_inventory.dragging_item.make_drag_preview(Vector2(0,0)))
-		
 # Slot Glowing Logic
 func _on_mouse_exited():
 	if glowing:
@@ -117,9 +111,13 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 						origin_slot.slot_item = null
 						origin_slot.remove_child(dragged_item)
 						dragged_item.visible = true
+						parent_inventory.dragging_item = null
+						parent_inventory.swapping = null
 						return
 				else:
 					dragged_item.visible = true
+					parent_inventory.dragging_item = null
+					parent_inventory.swapping = null
 					return
 				
 			# add dragged item to the slot

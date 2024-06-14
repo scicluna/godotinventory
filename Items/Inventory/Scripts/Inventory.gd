@@ -24,6 +24,11 @@ func _ready():
 		grid.add_child(slot)
 	for i in items_to_load.size():
 		add_item(load(items_to_load[i]), 1)
+		
+func _process(delta):
+	if swapping and is_instance_valid(dragging_item):
+		dragging_item.force_drag(dragging_item, dragging_item.make_drag_preview(Vector2(0,0)))
+		
 
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("inventory"):
@@ -32,6 +37,23 @@ func _input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# Literal Hacky Cheezemaster Garbage - Wow I hate this
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and inventory_ui.visible \
+	and not swapping and not dragging_item and event.is_pressed():
+		handle_right_click(event)
+
+
+func handle_right_click(event: InputEventMouseButton) -> void:
+	var mouse_pos = event.position
+	var slots = grid.get_children()
+
+	for slot in slots:
+		if slot.get_global_rect().has_point(mouse_pos):
+			if slot.slot_item:
+				var temp_data = slot.slot_item.data
+				owner.quick_equip(temp_data)
+				return
 
 func _can_drop_data(at_position, data):
 	return true
