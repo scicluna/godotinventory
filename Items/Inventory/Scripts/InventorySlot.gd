@@ -62,12 +62,7 @@ func _on_fade_out_complete() -> void:
 func drop_is_valid(dragged_item: Variant) -> bool:
 	if dragged_item is InventoryItem:
 		if type == ItemData.ItemType.MAIN or type == ItemData.ItemType.MSC:
-			if self.get_child_count() == 0:
-				return true
-			else:
-				if dragged_item.get_parent() and type == dragged_item.get_parent().type:
-					return true
-				return self.get_child(0).data.item_type == dragged_item.data.item_type
+			return true
 		else:
 			return dragged_item.data.item_type == type
 	return false
@@ -102,13 +97,15 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 						slot_item.quantity = slot_item.MAX_QUANTITY
 						slot_item.update_quantity()
 						dragged_item.update_quantity()
+						
 					#if combined successfully
 					else:
+						origin_slot.slot_item = null
 						if origin_slot.type != ItemData.ItemType.MAIN:
 							origin_slot.equip_item(null)
 							
 						slot_item.update_quantity()
-						origin_slot.slot_item = null
+
 						origin_slot.remove_child(dragged_item)
 						dragged_item.visible = true
 						parent_inventory.dragging_item = null
@@ -128,6 +125,10 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			
 			# slot_item now points to the item we had been dragging
 			slot_item = dragged_item
+			
+			# set original slot to null, since we are now dragging it.
+			if self != origin_slot:
+				origin_slot.slot_item = null
 
 			# if swapping with an equipment slot
 			if origin_slot.type != ItemData.ItemType.MAIN:
@@ -135,9 +136,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				if not parent_inventory.swapping:
 					origin_slot.equip_item(null)
 
-			# set original slot to null, since we are now dragging it.
-			if self != origin_slot:
-				origin_slot.slot_item = null
+
 			
 			# swap items
 			parent_inventory.swapping = true
@@ -150,8 +149,9 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 				
 				# if we didn't just swap equipment...
 				if not parent_inventory.swapping:
-					origin_slot.equip_item(null)
 					origin_slot.slot_item = null
+					origin_slot.equip_item(null)
+
 					
 			# if origin slot was not an equipment item...	
 			else:
@@ -164,7 +164,6 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			# turn off swapping
 			parent_inventory.dragging_item = null
 			parent_inventory.swapping = false
-			
 			
 	# Remove the glow after dropping
 	remove_glow()
@@ -183,3 +182,8 @@ func clear_slot():
 		for child in children:
 			child.queue_free()
 		
+func get_slot_item() -> InventoryItem:
+	if slot_item:
+		return slot_item
+	else:
+		return null

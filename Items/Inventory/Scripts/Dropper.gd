@@ -21,9 +21,8 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 		origin_slot.slot_item = null
 		origin_slot.remove_child(dragged_item)
 		return
-	
+
 	var item_instance = dragged_item.data.item_texture.duplicate(true).instantiate()	
-	
 	var forward_vector = -camera.global_transform.basis.z.normalized()
 	var drop_position = camera.global_transform.origin + (forward_vector * 2.5)  # Drop the item 1 unit in front of the camera
 	drop_position.y = player.global_transform.origin.y + 1.25  # Keep the drop height consistent with the player's position
@@ -40,4 +39,4 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	if origin_slot.slot_item == null and origin_slot.type != ItemData.ItemType.MAIN:
 		origin_slot.equip_item(null)
 		
-	origin_slot.swapping = false
+	player.inventory.swapping = false

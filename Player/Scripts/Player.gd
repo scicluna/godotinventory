@@ -28,14 +28,6 @@ var dashing = false
 # player stats
 @export var player_stats: PlayerStats
 
-# equipment
-var equipped_weapon: WeaponData
-var equipped_head: EquipmentData
-var equipped_chest: EquipmentData
-var equipped_legs: EquipmentData
-var equipped_feet: EquipmentData
-var equipped_accessory: EquipmentData
-
 # abilities
 var movement_abilities: Array[Movement]
 
@@ -131,11 +123,26 @@ func cap_speed():
 			velocity.z *= speed_ratio
 
 func equip_weapon(new_weapon: WeaponData):
-	equipped_weapon = new_weapon
 	weapon_layer.equip_weapon(new_weapon)
 
-# todo: sift through inventory for item -> grab the referenced slot -> deduct one -> add to slot -> if slot was full -> have slot re-added to inventory -> equip weapon
-
+# Your update_equipment_stats function in the Player or Inventory script:
+func update_equipment_stats():
+	var slots = inventory.equipment_grid.get_children()
+	
+	# Reset equip_stats to 0
+	for key in player_stats.equip_stats.keys():
+		player_stats.equip_stats[key] = 0
+	
+	# Loop through equipment slots and accumulate stats
+	for slot in slots:
+		var item = slot.get_slot_item()
+		if item:
+			for key in player_stats.equip_stats.keys():
+				player_stats.equip_stats[key] += item.data.stats[key]
+					
+	# Update total_stats
+	player_stats.update_total_stats()
+	
 func quick_equip(new_data: ItemData) -> void:
 	# sift inventory for item and get slot reference
 	var slot = inventory.get_slot(new_data)
@@ -176,6 +183,10 @@ func quick_equip(new_data: ItemData) -> void:
 	# equip the weapon
 	if new_data.item_type == ItemData.ItemType.WEAPON:
 		equip_weapon(new_data)
+		
+	# equip equipment
+	if new_data.item_type == ItemData.ItemType.EQUIPMENT:
+		update_equipment_stats()
 	
 	# if slot is now empty, clear it
 	if slot.slot_item.quantity <= 0:
@@ -184,6 +195,3 @@ func quick_equip(new_data: ItemData) -> void:
 
 func unequip_weapon():
 	print("unequipped weapon")
-
-func update_equipment_stats():
-	pass

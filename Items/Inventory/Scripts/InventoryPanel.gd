@@ -10,14 +10,11 @@ func _can_drop_data(_at_position, dragged_item) -> bool:
 	
 func drop_is_valid(closest_slot: Control, dragged_item: Variant) -> bool:
 	if dragged_item is InventoryItem:
-		if closest_slot.type == ItemData.ItemType.MAIN:
-			if closest_slot.get_child_count() == 0:
-				return true
-			else:
-				if dragged_item.get_parent() and closest_slot.type == dragged_item.get_parent().type:
-					return true
-				return closest_slot.get_child(0).data.item_type == dragged_item.data.item_type
-		else:
+		if closest_slot.type == ItemData.ItemType.MAIN or closest_slot.type == ItemData.ItemType.MSC:
+			return true
+		elif dragged_item.data.item_type == ItemData.ItemType.EQUIPMENT:
+			return dragged_item.data.equipment_type == closest_slot.equipment_type
+		elif dragged_item.data.item_type == ItemData.ItemType.WEAPON:
 			return dragged_item.data.item_type == closest_slot.type
 	return false
 	
@@ -34,9 +31,8 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 		if distance < closest_distance:
 			closest_slot = slot
 			closest_distance = distance
-			
+	
 	# if we found a closest slot and its valid
 	if closest_slot and drop_is_valid(closest_slot, dragged_item):
-		
 		closest_slot._drop_data(at_position, dragged_item)
 		return

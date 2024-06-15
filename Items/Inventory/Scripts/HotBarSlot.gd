@@ -5,6 +5,7 @@ class_name HotBarSlot
 
 func _ready():
 	parent_inventory = get_parent().get_parent().get_parent().get_parent().get_parent()
+	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 
 # handle drop signal
 func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:

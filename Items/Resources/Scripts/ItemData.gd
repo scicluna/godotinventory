@@ -14,3 +14,6 @@ enum ItemType {
 @export_multiline var description: String
 @export var item_icon: Texture2D
 @export var item_texture: PackedScene
+
+func hotbar_action(player: Player):
+	pass

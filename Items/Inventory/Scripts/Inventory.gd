@@ -14,7 +14,9 @@ var dragging_item: InventoryItem
 var items_to_load := [
 	"res://Items/Resources/dagger.tres",
 	"res://Items/Resources/dagger.tres",
-	"res://Items/Resources/dagger1.tres"
+	"res://Items/Resources/dagger1.tres",
+	"res://Items/Resources/testarmor.tres",
+	"res://Items/Resources/testarmor.tres"
 ]
 
 func _ready():
@@ -110,10 +112,8 @@ func get_equipment_slot(enum_type: ItemData.ItemType, equip_type = null) -> Inve
 	for slot in slots:
 		if slot.type == enum_type:
 			if equip_type != null:
-				if slot.type == equip_type:
+				if slot.equipment_type == equip_type:
 					return slot
-				else:
-					pass
 			else:
 				return slot
 	

@@ -11,7 +11,21 @@ base_stats = {
 "STA": 0,
 "STR": 0
 }
+equip_stats = {
+"AGI": 0,
+"CHA": 0,
+"INT": 0,
+"STA": 0,
+"STR": 0
+}
 bonus_stats = {
+"AGI": 0,
+"CHA": 0,
+"INT": 0,
+"STA": 0,
+"STR": 0
+}
+total_stats = {
 "AGI": 0,
 "CHA": 0,
 "INT": 0,

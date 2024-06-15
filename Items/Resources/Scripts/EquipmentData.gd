@@ -10,13 +10,20 @@ enum EquipmentType {
 }
 
 @export var equipment_type: EquipmentType
-@export var str_change: int
-@export var agi_change: int
-@export var sta_change: int
-@export var int_change: int
+@export var stats = {
+	"STR": 0,
+	"AGI": 0,
+	"STA": 0,
+	"INT": 0,
+	"CHA": 0
+}
+
 @export var movement_abilities: Array[PackedScene] # Movement Scenes as Packed Scenes
 @export var combat_abilities: Array[PackedScene] # Abilities as Packed Scenes
 
 # Challenge for Later
 #@export var ability_added:
 #@export var movement_added:
+func hotbar_action(player: Player):
+	print("Player tries to equip me on the hotbar!")
+	player.quick_equip(self)
