@@ -72,6 +72,9 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 
 	origin_slot = dragged_item.get_parent()
 	
+	if not is_instance_valid(origin_slot) or not origin_slot:
+		return
+	
 	# handle removals from hotbar
 	if origin_slot.type == ItemData.ItemType.MSC:
 		origin_slot.slot_item = null
@@ -79,82 +82,90 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 		return
 
 	if drop_is_valid(dragged_item):
-		
 		# if this slot is occupied...
 		if is_instance_valid(self.slot_item):
-			# early return if the references are to the same item
+			
+			# check to see if we can try to stack the items
 			if dragged_item.data == slot_item.data:
 				
-				#if not from the same slots...
+				# if not from the same slots...
 				if origin_slot != self:
 
-					#try to stack them
+					# try to stack them
 					slot_item.quantity += dragged_item.quantity
 					
-					#if overflow
+					# if overflow
 					if slot_item.quantity > slot_item.MAX_QUANTITY:
 						dragged_item.quantity = slot_item.quantity - slot_item.MAX_QUANTITY
 						slot_item.quantity = slot_item.MAX_QUANTITY
 						slot_item.update_quantity()
 						dragged_item.update_quantity()
 						
-					#if combined successfully
+					# if combined successfully
 					else:
+						
+						# clear out origin and unequip item if necessary
 						origin_slot.slot_item = null
 						if origin_slot.type != ItemData.ItemType.MAIN:
 							origin_slot.equip_item(null)
 							
+						# update the quantity for this slot
 						slot_item.update_quantity()
 
+						# remove the origin_slot's item and set everything to neutral
 						origin_slot.remove_child(dragged_item)
 						dragged_item.visible = true
 						parent_inventory.dragging_item = null
 						parent_inventory.swapping = null
 						return
+				# if the origin slot was the same as the dropping slot...
 				else:
+					# set everything to neutral
 					dragged_item.visible = true
 					parent_inventory.dragging_item = null
 					parent_inventory.swapping = null
 					return
 				
-			# add dragged item to the slot
-			dragged_item.reparent(self)
+			# regular swap and not stacking
+			else:
+				# add dragged item to the slot
+				dragged_item.reparent(self)
 
-			# change dragging_item to the now former slot item
-			parent_inventory.dragging_item = slot_item
-			
-			# slot_item now points to the item we had been dragging
-			slot_item = dragged_item
-			
-			# set original slot to null, since we are now dragging it.
-			if self != origin_slot:
-				origin_slot.slot_item = null
+				# change dragging_item to the now former slot item
+				parent_inventory.dragging_item = slot_item
+				
+				# slot_item now points to the item we had been dragging
+				slot_item = dragged_item
+				
+				# set original slot to null, since we are now dragging it... unless we were already swapping.
+				if self != origin_slot and not parent_inventory.swapping:
+					origin_slot.slot_item = null
 
-			# if swapping with an equipment slot
-			if origin_slot.type != ItemData.ItemType.MAIN:
-				# if we didn't just swap equipment...
-				if not parent_inventory.swapping:
-					origin_slot.equip_item(null)
+				# if swapping with an equipment slot
+				if origin_slot.type != ItemData.ItemType.MAIN:
+					# if we didn't just swap equipment...
+					if not parent_inventory.swapping:
+						origin_slot.equip_item(null)
 
-
-			
-			# swap items
-			parent_inventory.swapping = true
+				# swap items
+				parent_inventory.swapping = true
+				
+		# if the slot was empty
 		else:			
 			# add dragged item to the slot
 			dragged_item.reparent(self)
 			
 			# if origin slot was an equipment item...
 			if origin_slot.type != ItemData.ItemType.MAIN:
-				
 				# if we didn't just swap equipment...
 				if not parent_inventory.swapping:
+					# empty the slot out and unequip the item
 					origin_slot.slot_item = null
 					origin_slot.equip_item(null)
 
-					
 			# if origin slot was not an equipment item...	
 			else:
+				# if we aren't swapping, clear out the origin slot
 				if not parent_inventory.swapping:
 					origin_slot.slot_item = null
 				
@@ -165,7 +176,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			parent_inventory.dragging_item = null
 			parent_inventory.swapping = false
 			
-	# Remove the glow after dropping
+	# Remove the glow after dropping and make sure dragged item is now visible (probably not needed)
 	remove_glow()
 	dragged_item.visible = true
 

@@ -5,7 +5,8 @@ class_name InventoryPanel
 var origin_slot: InventorySlot
 
 func _can_drop_data(_at_position, dragged_item) -> bool:
-	dragged_item.visible = false
+	if is_instance_valid(dragged_item):
+		dragged_item.visible = false
 	return true
 	
 func drop_is_valid(closest_slot: Control, dragged_item: Variant) -> bool:

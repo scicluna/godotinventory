@@ -64,11 +64,11 @@ func handle_right_click(event: InputEventMouseButton) -> void:
 		if slot.get_global_rect().has_point(mouse_pos):
 			if slot.slot_item and (slot.slot_item.data.item_type == ItemData.ItemType.WEAPON or slot.slot_item.data.item_type == ItemData.ItemType.EQUIPMENT):
 				var temp_data = slot.slot_item.data
-				owner.quick_equip(temp_data)
+				self.quick_equip(temp_data)
 				return
 			elif slot.slot_item and slot.slot_item.data.item_type == ItemData.ItemType.CONSUMABLE:
 				var temp_data = slot.slot_item.data
-				owner.quick_use(temp_data)
+				self.quick_use(temp_data)
 				return
 
 func _can_drop_data(at_position, data):
@@ -106,7 +106,7 @@ func remove_item(origin_slot: InventorySlot, inventory_item: InventoryItem, quan
 			inventory_item.visible = true
 			inventory_item.update_quantity()
 			if inventory_item.quantity <= 0:
-				origin_slot.remove_child(inventory_item)
+				origin_slot.remove_child(inventory_item)   
 				origin_slot.slot_item = null
 			return
 			
@@ -132,3 +132,91 @@ func get_equipment_slot(enum_type: ItemData.ItemType, equip_type = null) -> Inve
 				return slot
 	
 	return null
+
+
+func quick_equip(new_data: ItemData) -> void:
+	# sift inventory for item and get slot reference
+	var slot = self.get_slot(new_data)
+
+	print("quick equip")
+	# if slot is not found, return early
+	if not slot:
+		return
+		
+	# if there's no item in the slot, return
+	if not slot.slot_item:
+		return
+		
+	# if slot is swapping for some reason, return early
+	if self.swapping:
+		return
+		
+	# deduct one from the slot item
+	slot.slot_item.quantity -= 1
+	slot.slot_item.update_quantity()
+
+	# if the equipment slot is already full...
+	var equipment_type = new_data.equipment_type if new_data is EquipmentData else null
+	var target_slot = self.get_equipment_slot(new_data.item_type, equipment_type)
+	if target_slot.slot_item:
+		var temp_item_data = target_slot.slot_item.data
+		target_slot.slot_item = null
+		target_slot.clear_slot()
+		self.add_item(temp_item_data)
+	
+	# add the equipment to equipment slot
+	var item = InventoryItem.new()
+	item.quantity = 1
+	item.data = new_data
+	target_slot.slot_item = item
+	target_slot.add_child(item)
+	
+	# equip the weapon
+	if new_data.item_type == ItemData.ItemType.WEAPON:
+		owner.equip_weapon(new_data)
+		
+	# equip equipment
+	if new_data.item_type == ItemData.ItemType.EQUIPMENT:
+		owner.update_equipment_stats()
+	
+	# if slot is now empty, clear it
+	if slot.slot_item.quantity <= 0:
+		slot.slot_item = null
+	
+func quick_use(new_data: ItemData) -> void:
+	# sift inventory for item and get slot reference
+	var slot = self.get_slot(new_data)
+
+	print("quick use")
+	# if slot is not found, return early
+	if not slot:
+		return
+		
+	# if there's no item in the slot, return
+	if not slot.slot_item:
+		return
+		
+	# if slot is swapping for some reason, return early
+	if self.swapping:
+		return
+		
+	# actually use the consumable
+	slot.slot_item.data.consume(owner)
+		
+	# deduct one from the slot item
+	slot.slot_item.quantity -= 1
+	
+	#deduct one from any hotbar equivalents
+	var hotbar_equivalent = self.get_slot(slot.slot_item.data, self.hotbar)
+	if hotbar_equivalent:
+		hotbar_equivalent.slot_item.quantity = slot.slot_item.quantity
+		hotbar_equivalent.slot_item.update_quantity()
+		
+		if hotbar_equivalent.slot_item.quantity <= 0:
+			hotbar_equivalent.slot_item = null
+
+	#update quantity
+	slot.slot_item.update_quantity()
+	
+	if slot.slot_item.quantity <= 0:
+		slot.slot_item = null

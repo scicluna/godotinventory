@@ -43,6 +43,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 		
 		# assign slot item
 		slot_item = new_item
+		parent_inventory.dragging_item = null
 
 	# Remove the glow after dropping
 	self.remove_glow()

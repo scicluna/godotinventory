@@ -1,14 +1,4 @@
 Todos:
-
-- Fix various stack and equipment slot interactions
-- Make Hotbar
-- Allow Equip on Hotbar Press
-- Allow Equip on Right Click
---- done?
-
-- Equipmenht SLot Logic
-- Make and test Equipment
-- Create stat updates
 - Hoist Down Inventory Related Things into the Inventory Scene and out of Player so that Inventory stands alone for the most part
 - Clean up Code
 

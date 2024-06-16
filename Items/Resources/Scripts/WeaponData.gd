@@ -22,4 +22,4 @@ enum weapon_type {
 
 func hotbar_action(player: Player):
 	print("Player tries to equip me on the hotbar!")
-	player.quick_equip(self)
+	player.inventory.quick_equip(self)
