@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bm2i18dgkqpoy"]
+[gd_scene load_steps=14 format=3 uid="uid://bm2i18dgkqpoy"]
 
 [ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_o7lua"]
+[ext_resource type="Resource" uid="uid://c7kefylx1myu" path="res://Player/Resources/player_resources.tres" id="2_gyc45"]
 [ext_resource type="Resource" uid="uid://cae1hujwohgg7" path="res://Player/Resources/player_stats.tres" id="2_s100g"]
 [ext_resource type="PackedScene" uid="uid://du8sh5k1bhnru" path="res://Items/Inventory/Inventory.tscn" id="2_vcbjm"]
 [ext_resource type="PackedScene" uid="uid://cr5f36w23ks8e" path="res://Player/WeaponLayer.tscn" id="4_y7yaf"]
@@ -96,6 +97,7 @@ fill_to = Vector2(0, 0)
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_o7lua")
+player_resources = ExtResource("2_gyc45")
 player_stats = ExtResource("2_s100g")
 
 [node name="Inventory" parent="." instance=ExtResource("2_vcbjm")]

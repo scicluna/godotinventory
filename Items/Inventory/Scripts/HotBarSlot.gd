@@ -37,7 +37,7 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 			
 		# clone for hotbar use
 		var new_item = dragged_item.duplicate() as InventoryItem
-		new_item.quantity = 1
+		new_item.quantity = dragged_item.quantity if dragged_item.data is ConsumableData else 1
 		new_item.visible = true
 		self.add_child(new_item)
 		

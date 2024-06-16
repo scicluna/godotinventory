@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerResources" load_steps=2 format=3 uid="uid://c7kefylx1myu"]
+
+[ext_resource type="Script" path="res://Player/Scripts/PlayerResources.gd" id="1_b7c2t"]
+
+[resource]
+script = ExtResource("1_b7c2t")
+hp = 10
+max_hp = 10
+mp = 5
+max_mp = 5
+gold = 0

@@ -26,6 +26,7 @@ const JUMP_VELOCITY = 6
 var dashing = false
 
 # player stats
+@export var player_resources: PlayerResources
 @export var player_stats: PlayerStats
 
 # abilities
@@ -164,7 +165,7 @@ func quick_equip(new_data: ItemData) -> void:
 	slot.slot_item.quantity -= 1
 	slot.slot_item.update_quantity()
 
-	# if the weapon slot is already full...
+	# if the equipment slot is already full...
 	var equipment_type = new_data.equipment_type if new_data is EquipmentData else null
 	var target_slot = inventory.get_equipment_slot(new_data.item_type, equipment_type)
 	if target_slot.slot_item:
@@ -173,7 +174,7 @@ func quick_equip(new_data: ItemData) -> void:
 		target_slot.clear_slot()
 		inventory.add_item(temp_item_data)
 	
-	# add the weapon to weapon slot
+	# add the equipment to equipment slot
 	var item = InventoryItem.new()
 	item.quantity = 1
 	item.data = new_data
@@ -192,6 +193,48 @@ func quick_equip(new_data: ItemData) -> void:
 	if slot.slot_item.quantity <= 0:
 		slot.slot_item = null
 	
+func quick_use(new_data: ItemData) -> void:
+	# sift inventory for item and get slot reference
+	var slot = inventory.get_slot(new_data)
+
+	print("quick use")
+	# if slot is not found, return early
+	if not slot:
+		return
+		
+	# if there's no item in the slot, return
+	if not slot.slot_item:
+		return
+		
+	# if slot is swapping for some reason, return early
+	if inventory.swapping:
+		return
+		
+	# actually use the consumable
+	slot.slot_item.data.consume(self)
+		
+	# deduct one from the slot item
+	slot.slot_item.quantity -= 1
+	
+	#deduct one from any hotbar equivalents
+	var hotbar_equivalent = inventory.get_slot(slot.slot_item.data, inventory.hotbar)
+	if hotbar_equivalent:
+		hotbar_equivalent.slot_item.quantity = slot.slot_item.quantity
+		hotbar_equivalent.slot_item.update_quantity()
+		
+		if hotbar_equivalent.slot_item.quantity <= 0:
+			hotbar_equivalent.slot_item = null
+
+	#update quantity
+	slot.slot_item.update_quantity()
+	
+	if slot.slot_item.quantity <= 0:
+		slot.slot_item = null
 
 func unequip_weapon():
 	print("unequipped weapon")
+
+func receive_damage(damage: int) -> void:
+	# var modified_damage = modified_damage(damage)
+	player_resources.take_damage(damage)
+

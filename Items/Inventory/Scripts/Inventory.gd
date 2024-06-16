@@ -3,6 +3,7 @@ class_name InventoryControl
 
 @onready var grid = $InventoryUI/UIControl/PopupUI/Main/GridContainer
 @onready var equipment_grid = $InventoryUI/UIControl/PopupUI/Equips/GridContainer
+@onready var hotbar = $InventoryUI/UIControl/HotBar/GridContainer
 @onready var inventory_ui = $InventoryUI/UIControl/PopupUI
 
 const MAX_SLOTS = 24
@@ -16,7 +17,16 @@ var items_to_load := [
 	"res://Items/Resources/dagger.tres",
 	"res://Items/Resources/dagger1.tres",
 	"res://Items/Resources/testarmor.tres",
-	"res://Items/Resources/testarmor.tres"
+	"res://Items/Resources/testarmor.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres",
+	"res://Items/Resources/lesser_healing_potion.tres"
 ]
 
 func _ready():
@@ -52,9 +62,13 @@ func handle_right_click(event: InputEventMouseButton) -> void:
 
 	for slot in slots:
 		if slot.get_global_rect().has_point(mouse_pos):
-			if slot.slot_item:
+			if slot.slot_item and (slot.slot_item.data.item_type == ItemData.ItemType.WEAPON or slot.slot_item.data.item_type == ItemData.ItemType.EQUIPMENT):
 				var temp_data = slot.slot_item.data
 				owner.quick_equip(temp_data)
+				return
+			elif slot.slot_item and slot.slot_item.data.item_type == ItemData.ItemType.CONSUMABLE:
+				var temp_data = slot.slot_item.data
+				owner.quick_use(temp_data)
 				return
 
 func _can_drop_data(at_position, data):
@@ -96,8 +110,8 @@ func remove_item(origin_slot: InventorySlot, inventory_item: InventoryItem, quan
 				origin_slot.slot_item = null
 			return
 			
-func get_slot(item_data: ItemData) -> InventorySlot:
-	var slots = grid.get_children()
+func get_slot(item_data: ItemData, inventroy_reference = grid) -> InventorySlot:
+	var slots = inventroy_reference.get_children()
 	
 	for slot in slots:
 		var slotted_item = slot.get_child(0) if slot.get_children().size() > 0 else null

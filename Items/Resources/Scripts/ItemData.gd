@@ -15,5 +15,5 @@ enum ItemType {
 @export var item_icon: Texture2D
 @export var item_texture: PackedScene
 
-func hotbar_action(player: Player):
+func hotbar_action(player: Player) -> void:
 	pass

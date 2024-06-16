@@ -1,3 +1,4 @@
+
 extends Label
 
 @export var slot_number := 0
