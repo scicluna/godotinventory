@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfm282kgw2dos"]
+[gd_scene load_steps=5 format=3 uid="uid://cfm282kgw2dos"]
 
 [ext_resource type="PackedScene" uid="uid://bm2i18dgkqpoy" path="res://Player/Player.tscn" id="1_ahhwk"]
+[ext_resource type="PackedScene" uid="uid://dr61otgqyar53" path="res://Mobs/Scenes/Dummy.tscn" id="2_yqhkb"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0rtpq"]
 
@@ -24,3 +25,5 @@ shape = SubResource("ConvexPolygonShape3D_kiny2")
 transform = Transform3D(-0.917032, 0.355966, 0.179834, 0.398813, 0.818508, 0.413512, 0, 0.450924, -0.892562, 64.475, 18.2652, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_ahhwk")]
+
+[node name="Dummy" parent="." instance=ExtResource("2_yqhkb")]

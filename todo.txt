@@ -6,8 +6,15 @@ Todos:
 - Prepare Main Scenes for First Session
 - Create Catalog of "Extras" for if the party gets off track
 
+- write/copy narrative blips up to and including grimaldi's encounter
+- agatha retcon
+- complete the todo list from last mojo.txt
+- figure out map scaling / eco scaling
+- implement everything in forge
+- plat lucky bastard box
 
-
-
-+ molten impact?
-- blink things?
+--- extras ---
+More circus mobs
+- Acrobats
+- Fat Clown
+- Cauldren Things
