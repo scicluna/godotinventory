@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7ws5ayxo3qpy"]
+
+[ext_resource type="Script" path="res://UI/DamageNumbers.gd" id="1_xmpml"]
+
+[node name="DamageNumbers" type="Label3D"]
+offset = Vector2(0, 100)
+billboard = 2
+fixed_size = true
+texture_filter = 0
+render_priority = 1
+font_size = 40
+vertical_alignment = 0
+uppercase = true
+script = ExtResource("1_xmpml")
+rise_distance = 1.0

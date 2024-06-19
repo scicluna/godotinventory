@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bm2i18dgkqpoy"]
+[gd_scene load_steps=15 format=3 uid="uid://bm2i18dgkqpoy"]
 
 [ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_o7lua"]
 [ext_resource type="Resource" uid="uid://c7kefylx1myu" path="res://Player/Resources/player_resources.tres" id="2_gyc45"]
@@ -79,10 +79,39 @@ tracks/1/keys = {
 "values": [Vector3(-0.10349, -1.12315, 0.461036), Vector3(-0.226974, -1.53353, 1.40797), Vector3(-0.247979, -1.39254, 1.44974), Vector3(-0.247979, -1.39254, 1.44974), Vector3(-0.10349, -1.12315, 0.461036)]
 }
 
+[sub_resource type="Animation" id="Animation_c3lfm"]
+resource_name = "dagger_parry_1"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WeaponArm:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.240896, -0.246024, -0.42617), Vector3(0.179201, -0.147767, -0.42617)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WeaponArm:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.10349, -0.518516, 0.461036), Vector3(0.00780849, -0.177775, 1.12013)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6rnch"]
 _data = {
 "RESET": SubResource("Animation_3supu"),
-"dagger_attack_1": SubResource("Animation_akxio")
+"dagger_attack_1": SubResource("Animation_akxio"),
+"dagger_parry_1": SubResource("Animation_c3lfm")
 }
 
 [sub_resource type="Gradient" id="Gradient_dwq6r"]

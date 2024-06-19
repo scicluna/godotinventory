@@ -73,13 +73,13 @@ func _input(event: InputEvent) -> void:
 				if weapon_layer.weapon:
 					weapon_layer.stop()
 			
-	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and not inventory_open:
-		#if event.pressed:
-			#if weapon_arm.current_weapon:
-				#weapon_arm.current_weapon.parry()
-		#else:
-			#if weapon_arm.current_weapon:
-				#weapon_arm.current_weapon.stop()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and not inventory.inventory_ui.visible:
+		if event.pressed:
+			if weapon_layer.weapon:
+				weapon_layer.weapon_parry_start()
+		else:
+			if weapon_layer.weapon:
+				weapon_layer.weapon_parry_stop()
 				
 	# hotbar actions
 	for child in hotbar.get_children():

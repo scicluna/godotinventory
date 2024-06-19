@@ -10,6 +10,16 @@ class_name WeaponLayer
 @onready var cooldown_timer := $CooldownTimer
 
 var weapon: WeaponData
+var is_parrying = false
+
+func _process(delta):
+	#if is_parrying and hit_box.check_parry():
+		#print("Parry successful!")
+		## Logic for successful parry, e.g., setting up counter-attack
+		## You can adjust player's stats or other game mechanics here
+	#else:
+		#print("Parry failed!")
+	pass
 
 func equip_weapon(weapon_data: WeaponData):
 	# Clear Old Weapon
@@ -33,7 +43,7 @@ func stop():
 	animation_player.stop()
 
 func weapon_attack(total_player_stats):	
-	if cooldown_timer.is_stopped():
+	if cooldown_timer.is_stopped() and not is_parrying:
 		match weapon.weapon_category:
 			WeaponData.weapon_type.DAGGER:
 				if animation_player.has_animation("dagger_attack_1"): animation_player.play("dagger_attack_1")
@@ -56,8 +66,24 @@ func weapon_attack(total_player_stats):
 		cooldown_timer.start()  # Start cooldown timer
 			
 	
-func weapon_parry(total_player_stats):
-	pass
+func weapon_parry_start():
+	if cooldown_timer.is_stopped():
+		is_parrying = true
+		stop()  # Stop any current animations
+		match weapon.weapon_category:
+			WeaponData.weapon_type.DAGGER:
+				if animation_player.has_animation("dagger_parry_1"): animation_player.play("dagger_parry_1")
+			WeaponData.weapon_type.SWORD:
+				if animation_player.has_animation("sword_parry"): animation_player.play("sword_parry")
+			WeaponData.weapon_type.HAMMER:
+				if animation_player.has_animation("hammer_parry"): animation_player.play("hammer_parry")
+			_:
+				print("error - bad weapon type")
+
+func weapon_parry_stop():
+	is_parrying = false
+	animation_player.stop()  # Stop parry animation
+	cooldown_timer.start()  # Start cooldown timer
 
 func calculate_damage(total_player_stats):
 	pass
