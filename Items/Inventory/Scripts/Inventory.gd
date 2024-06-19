@@ -13,20 +13,14 @@ var swapping = false
 var dragging_item: InventoryItem
 
 var items_to_load := [
-	"res://Items/Resources/dagger.tres",
-	"res://Items/Resources/dagger.tres",
-	"res://Items/Resources/dagger1.tres",
-	"res://Items/Resources/testarmor.tres",
-	"res://Items/Resources/testarmor.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres",
-	"res://Items/Resources/lesser_healing_potion.tres"
+	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
+	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
+	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
+	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
+	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
+	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
+	"res://Items/ItemData/Weapons/Resources/dagger.tres",
+	"res://Items/ItemData/Equipment/Chest/Resources/testarmor.tres"
 ]
 
 func _ready():

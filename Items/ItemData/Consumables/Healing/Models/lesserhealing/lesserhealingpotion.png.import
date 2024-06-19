@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d32rcehus0v6e"
-path="res://.godot/imported/lesserhealingpotion.png-4812ded71d7bd7f1ad980927d86ab6d9.ctex"
+path="res://.godot/imported/lesserhealingpotion.png-430eada4ba51537cbef701d34ddd168d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Resources/Consumables/Healing/LesserHealingPotion/lesserhealingpotion.png"
-dest_files=["res://.godot/imported/lesserhealingpotion.png-4812ded71d7bd7f1ad980927d86ab6d9.ctex"]
+source_file="res://Items/ItemData/Consumables/Healing/Models/lesserhealing/lesserhealingpotion.png"
+dest_files=["res://.godot/imported/lesserhealingpotion.png-430eada4ba51537cbef701d34ddd168d.ctex"]
 
 [params]
 

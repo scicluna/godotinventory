@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="EquipmentData" load_steps=4 format=3 uid="uid://d1bc87sf53ttm"]
 
-[ext_resource type="Texture2D" uid="uid://bjsafwvux0jg2" path="res://Items/Resources/Equipment/Chest/TestArmor/testarmor.png" id="1_5gmaq"]
-[ext_resource type="Script" path="res://Items/Resources/Scripts/EquipmentData.gd" id="1_clln0"]
-[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/Resources/Models/dagger/dagger.tscn" id="2_bc70t"]
+[ext_resource type="Texture2D" uid="uid://bjsafwvux0jg2" path="res://Items/ItemData/Equipment/Chest/Models/testarmor/testarmor.png" id="1_5gmaq"]
+[ext_resource type="Script" path="res://Items/ItemData/Scripts/EquipmentData.gd" id="1_clln0"]
+[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/ItemData/Weapons/Scenes/dagger.tscn" id="2_bc70t"]
 
 [resource]
 script = ExtResource("1_clln0")

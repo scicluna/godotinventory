@@ -1,27 +1,27 @@
 [gd_scene load_steps=5 format=3 uid="uid://cr5f36w23ks8e"]
 
-[ext_resource type="Script" path="res://Player/Scripts/WeaponLayer.gd" id="1_k67ak"]
-[ext_resource type="Script" path="res://Player/Scripts/HitBox.gd" id="2_lsjq1"]
-[ext_resource type="Script" path="res://Player/HitBox.gd" id="3_c3rnn"]
+[ext_resource type="Script" path="res://WeaponLayer/Scripts/WeaponLayer.gd" id="1_i1wh3"]
+[ext_resource type="Script" path="res://WeaponLayer/Scripts/HitRay.gd" id="2_8rtc3"]
+[ext_resource type="Script" path="res://WeaponLayer/Scripts/HitBox.gd" id="3_k2qo2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_loevy"]
-size = Vector3(1, 1, 2)
+size = Vector3(0.5, 0.5, 1)
 
 [node name="WeaponLayer" type="Node3D"]
-script = ExtResource("1_k67ak")
+script = ExtResource("1_i1wh3")
 
 [node name="HitRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.99863, -0.052336, 0, 0.052336, 0.99863, 0, 0, 0.05)
 target_position = Vector3(0, -1, -20)
 collision_mask = 3
 debug_shape_thickness = 5
-script = ExtResource("2_lsjq1")
+script = ExtResource("2_8rtc3")
 
 [node name="HitBox" type="Area3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.5)
 collision_layer = 3
 collision_mask = 2
-script = ExtResource("3_c3rnn")
+script = ExtResource("3_k2qo2")
 
 [node name="HitBoxShape" type="CollisionShape3D" parent="HitBox"]
 shape = SubResource("BoxShape3D_loevy")

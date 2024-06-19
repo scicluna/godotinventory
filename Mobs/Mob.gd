@@ -3,6 +3,9 @@ class_name Mob
 
 @export var health: int = 100
 @export var max_health: int = 100
+@export var damage: int = 1
+
+@onready var player = get_tree().get_nodes_in_group("Player")[0]  
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

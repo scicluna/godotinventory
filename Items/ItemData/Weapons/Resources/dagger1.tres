@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://dt2h3f1avpwnu"]
 
-[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/Resources/Models/dagger/dagger.tscn" id="1_abj5r"]
-[ext_resource type="Script" path="res://Items/Resources/Scripts/WeaponData.gd" id="3_036cb"]
+[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/ItemData/Weapons/Scenes/dagger.tscn" id="1_abj5r"]
+[ext_resource type="Script" path="res://Items/ItemData/Scripts/WeaponData.gd" id="3_036cb"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6xwts"]
 

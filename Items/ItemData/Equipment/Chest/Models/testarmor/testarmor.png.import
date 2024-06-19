@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bjsafwvux0jg2"
-path="res://.godot/imported/testarmor.png-26cdb8a2cbb6e130948e4f1cd6bf19dd.ctex"
+path="res://.godot/imported/testarmor.png-8860bcac1ffa8f2cdfcc474e8addcba3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Items/Resources/Equipment/Chest/TestArmor/testarmor.png"
-dest_files=["res://.godot/imported/testarmor.png-26cdb8a2cbb6e130948e4f1cd6bf19dd.ctex"]
+source_file="res://Items/ItemData/Equipment/Chest/Models/testarmor/testarmor.png"
+dest_files=["res://.godot/imported/testarmor.png-8860bcac1ffa8f2cdfcc474e8addcba3.ctex"]
 
 [params]
 

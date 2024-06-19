@@ -24,6 +24,6 @@ shape = SubResource("ConvexPolygonShape3D_kiny2")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.917032, 0.355966, 0.179834, 0.398813, 0.818508, 0.413512, 0, 0.450924, -0.892562, 64.475, 18.2652, 0)
 
-[node name="Player" parent="." instance=ExtResource("1_ahhwk")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_ahhwk")]
 
 [node name="Dummy" parent="." instance=ExtResource("2_yqhkb")]

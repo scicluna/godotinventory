@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LesserHealingPotion" load_steps=4 format=3 uid="uid://cjhjeihqji2qp"]
+
+[ext_resource type="Texture2D" uid="uid://d32rcehus0v6e" path="res://Items/ItemData/Consumables/Healing/Models/lesserhealing/lesserhealingpotion.png" id="1_e7pay"]
+[ext_resource type="Script" path="res://Items/ItemData/Consumables/Healing/Scripts/LesserHealingPotion.gd" id="1_toc7i"]
+[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/ItemData/Weapons/Scenes/dagger.tscn" id="2_a7wd1"]
+
+[resource]
+script = ExtResource("1_toc7i")
+item_type = 2
+item_name = "Lesser Healing Potion"
+description = "Woah! Heal up!"
+item_icon = ExtResource("1_e7pay")
+item_texture = ExtResource("2_a7wd1")

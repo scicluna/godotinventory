@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://b8k765oovjq4x"]
 
-[ext_resource type="Texture2D" uid="uid://85auc7w46rf7" path="res://Items/Resources/Models/dagger/dagger_dagger.png" id="1_phxb7"]
-[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/Resources/Models/dagger/dagger.tscn" id="2_3iavg"]
-[ext_resource type="Script" path="res://Items/Resources/Scripts/WeaponData.gd" id="2_rkk5m"]
+[ext_resource type="Texture2D" uid="uid://85auc7w46rf7" path="res://Items/ItemData/Weapons/Models/dagger/dagger_dagger.png" id="1_phxb7"]
+[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/ItemData/Weapons/Scenes/dagger.tscn" id="2_3iavg"]
+[ext_resource type="Script" path="res://Items/ItemData/Scripts/WeaponData.gd" id="2_rkk5m"]
 
 [resource]
 script = ExtResource("2_rkk5m")
@@ -10,9 +10,9 @@ attack_damage = 5
 attack_speed = 0.05
 attack_range = 10.0
 attack_area = {
-"x": 2.0,
-"y": 1.0,
-"z": 1.0
+"x": 0.25,
+"y": 0.25,
+"z": 0.5
 }
 weapon_category = 0
 stats = {
