@@ -53,7 +53,6 @@ func _input(event: InputEvent) -> void:
 func handle_right_click(event: InputEventMouseButton) -> void:
 	var mouse_pos = event.position
 	var slots = grid.get_children()
-
 	for slot in slots:
 		if slot.get_global_rect().has_point(mouse_pos):
 			if slot.slot_item and (slot.slot_item.data.item_type == ItemData.ItemType.WEAPON or slot.slot_item.data.item_type == ItemData.ItemType.EQUIPMENT):
@@ -103,7 +102,9 @@ func remove_item(origin_slot: InventorySlot, inventory_item: InventoryItem, quan
 				origin_slot.remove_child(inventory_item)   
 				origin_slot.slot_item = null
 			return
-			
+
+
+# Handle multiples
 func get_slot(item_data: ItemData, inventroy_reference = grid) -> InventorySlot:
 	var slots = inventroy_reference.get_children()
 	
@@ -113,6 +114,17 @@ func get_slot(item_data: ItemData, inventroy_reference = grid) -> InventorySlot:
 			return slot
 	
 	return null
+	
+func get_slots(item_data: ItemData, inventroy_reference = grid) -> Array:
+	var slots = inventroy_reference.get_children()
+	var slot_picks = []
+	
+	for slot in slots:
+		var slotted_item = slot.get_child(0) if slot.get_children().size() > 0 else null
+		if slotted_item != null and slotted_item.data == item_data:
+			slot_picks.append(slot)
+		
+	return slot_picks
 
 func get_equipment_slot(enum_type: ItemData.ItemType, equip_type = null) -> InventorySlot:
 	var slots = equipment_grid.get_children()
@@ -201,13 +213,14 @@ func quick_use(new_data: ItemData) -> void:
 	slot.slot_item.quantity -= 1
 	
 	#deduct one from any hotbar equivalents
-	var hotbar_equivalent = self.get_slot(slot.slot_item.data, self.hotbar)
-	if hotbar_equivalent:
-		hotbar_equivalent.slot_item.quantity = slot.slot_item.quantity
-		hotbar_equivalent.slot_item.update_quantity()
-		
-		if hotbar_equivalent.slot_item.quantity <= 0:
-			hotbar_equivalent.slot_item = null
+	var hotbar_equivalents = self.get_slots(slot.slot_item.data, self.hotbar)
+	if hotbar_equivalents.size() > 0:
+		for hotbar_slot in hotbar_equivalents:
+			hotbar_slot.slot_item.quantity = slot.slot_item.quantity
+			hotbar_slot.slot_item.update_quantity()
+			
+			if hotbar_slot.slot_item.quantity <= 0:
+				hotbar_slot.slot_item = null
 
 	#update quantity
 	slot.slot_item.update_quantity()

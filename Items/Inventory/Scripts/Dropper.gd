@@ -20,6 +20,8 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 	if origin_slot.type == ItemData.ItemType.MSC:
 		origin_slot.slot_item = null
 		origin_slot.remove_child(dragged_item)
+		player.inventory.swapping = false
+		player.inventory.dragging_item = null
 		return
 
 	var item_instance = dragged_item.data.item_texture.duplicate(true).instantiate()	
@@ -40,3 +42,5 @@ func _drop_data(at_position: Vector2, dragged_item: Variant) -> void:
 		origin_slot.equip_item(null)
 		
 	player.inventory.swapping = false
+	player.inventory.dragging_item = null
+	

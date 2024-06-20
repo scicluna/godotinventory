@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjag4v6gpiw6p"
-path.s3tc="res://.godot/imported/SpriteSheet.png-c9163855930ffbf29f2e583db2f86d82.s3tc.ctex"
+path.s3tc="res://.godot/imported/SpriteSheet.png-040ebba16d640fb7aff3b4a27f6593e2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Mobs/Sprites/SpriteSheet.png"
-dest_files=["res://.godot/imported/SpriteSheet.png-c9163855930ffbf29f2e583db2f86d82.s3tc.ctex"]
+source_file="res://SpriteSheet.png"
+dest_files=["res://.godot/imported/SpriteSheet.png-040ebba16d640fb7aff3b4a27f6593e2.s3tc.ctex"]
 
 [params]
 
