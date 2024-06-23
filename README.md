@@ -15,3 +15,5 @@
     - Track various stats for the game in some sort of acheivment-centered key value system
         - Call to update ahcievment stats with something like update_achievements("key", value)
         - Then check to see if any acheivements were made by quickly moving over the key value pairs and determining through a case statement if any were met and awarding to the inventory and making an announcement upon meeting them.
+
+- no time today
