@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bm2i18dgkqpoy"]
+[gd_scene load_steps=16 format=3 uid="uid://bm2i18dgkqpoy"]
 
 [ext_resource type="Script" path="res://Player/Scripts/Player.gd" id="1_o7lua"]
 [ext_resource type="Resource" uid="uid://c7kefylx1myu" path="res://Player/Resources/player_resources.tres" id="2_gyc45"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://du8sh5k1bhnru" path="res://Items/Inventory/Inventory.tscn" id="2_vcbjm"]
 [ext_resource type="PackedScene" uid="uid://cr5f36w23ks8e" path="res://WeaponLayer/WeaponLayer.tscn" id="4_y7yaf"]
 [ext_resource type="PackedScene" uid="uid://cp5p82b0b5j7j" path="res://Interactables/Interactor.tscn" id="5_86tg0"]
+[ext_resource type="PackedScene" uid="uid://ceqsy5gr741f7" path="res://Achievements/AchievementTracker.tscn" id="7_hrsh5"]
 
 [sub_resource type="Animation" id="Animation_3supu"]
 length = 0.01
@@ -157,6 +158,8 @@ mesh = SubResource("CapsuleMesh_ddiv2")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("ConvexPolygonShape3D_kqgry")
+
+[node name="AchievementTracker" parent="." instance=ExtResource("7_hrsh5")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

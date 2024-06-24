@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://btcvyp6tubx03"]
+
+[ext_resource type="Script" path="res://Announcer/Announcer.gd" id="1_3tg60"]
+
+[node name="Announcer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3tg60")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AnnouncementText" type="TextEdit" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.111
+anchor_right = 0.889
+anchor_bottom = 0.099
+offset_left = 0.127991
+offset_right = -0.128052
+offset_bottom = -0.152008
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

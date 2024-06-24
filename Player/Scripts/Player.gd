@@ -21,6 +21,7 @@ const JUMP_VELOCITY = 6
 @onready var hotbar = $Inventory/InventoryUI/UIControl/HotBar/GridContainer
 @onready var weapon_layer = $Neck/Camera3D/WeaponLayer
 @onready var interactor = $Interactor
+@onready var achievement_tracker = $AchievementTracker
 
 # movement flags
 var dashing = false
@@ -126,6 +127,7 @@ func cap_speed():
 
 func equip_weapon(new_weapon: WeaponData):
 	weapon_layer.equip_weapon(new_weapon)
+	update_equipment_stats()
 
 # Your update_equipment_stats function in the Player or Inventory script:
 func update_equipment_stats():
@@ -142,6 +144,8 @@ func update_equipment_stats():
 			for key in player_stats.equip_stats.keys():
 				player_stats.equip_stats[key] += item.data.stats[key]
 					
+	# check for achievements
+	achievement_tracker.check_achievements(self)
 	# Update total_stats
 	player_stats.update_total_stats()
 	

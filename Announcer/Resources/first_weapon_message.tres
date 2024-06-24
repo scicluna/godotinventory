@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Announcement" load_steps=2 format=3 uid="uid://dy01mgefewvrw"]
+
+[ext_resource type="Script" path="res://Announcer/Announcement.gd" id="1_fbhlq"]
+
+[resource]
+script = ExtResource("1_fbhlq")
+text = "You got your first weapon!!!! Wow, you aren't a vegetable!!!"
+announcement_speed = 0

@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="WeaponData" load_steps=4 format=3 uid="uid://dt2h3f1avpwnu"]
+
+[ext_resource type="Texture2D" uid="uid://85auc7w46rf7" path="res://Items/ItemData/Weapons/Models/dagger/dagger_dagger.png" id="1_050gh"]
+[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/ItemData/Weapons/Scenes/dagger.tscn" id="2_d7tx7"]
+[ext_resource type="Script" path="res://Items/ItemData/Scripts/WeaponData.gd" id="3_il0o1"]
+
+[resource]
+script = ExtResource("3_il0o1")
+attack_damage = 5
+attack_speed = 0.2
+attack_range = 3.0
+attack_area = {
+"x": 2.0,
+"y": 1.0,
+"z": 2.0
+}
+weapon_category = 0
+stats = {
+"AGI": 0,
+"CHA": 0,
+"INT": 0,
+"STA": 0,
+"STR": 0
+}
+item_type = 0
+item_name = "Dagger2"
+description = "Woah, another dagger!"
+item_icon = ExtResource("1_050gh")
+item_texture = ExtResource("2_d7tx7")
