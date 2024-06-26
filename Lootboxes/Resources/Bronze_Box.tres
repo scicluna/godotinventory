@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="Lootbox" load_steps=9 format=3 uid="uid://6x6j0mox6blk"]
+
+[ext_resource type="Script" path="res://Lootboxes/Lootbox.gd" id="1_2ic6b"]
+[ext_resource type="Resource" uid="uid://cjhjeihqji2qp" path="res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres" id="1_72wgo"]
+[ext_resource type="Script" path="res://Lootboxes/Loot.gd" id="2_tjlvf"]
+[ext_resource type="Resource" uid="uid://dt2h3f1avpwnu" path="res://Items/ItemData/Weapons/Resources/dagger.tres" id="3_rsgcv"]
+[ext_resource type="Resource" uid="uid://d1bc87sf53ttm" path="res://Items/ItemData/Equipment/Chest/Resources/testarmor.tres" id="4_xhbkv"]
+
+[sub_resource type="Resource" id="Resource_dphxy"]
+script = ExtResource("2_tjlvf")
+data = ExtResource("1_72wgo")
+weight = 1.0
+quantity = 2
+
+[sub_resource type="Resource" id="Resource_argfb"]
+script = ExtResource("2_tjlvf")
+data = ExtResource("4_xhbkv")
+weight = 1.0
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_jhoqo"]
+script = ExtResource("2_tjlvf")
+data = ExtResource("3_rsgcv")
+weight = 1.0
+quantity = 1
+
+[resource]
+script = ExtResource("1_2ic6b")
+item_pool = Array[ExtResource("2_tjlvf")]([SubResource("Resource_dphxy"), SubResource("Resource_argfb"), SubResource("Resource_jhoqo")])

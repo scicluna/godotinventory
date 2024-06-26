@@ -20,7 +20,8 @@ var items_to_load := [
 	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
 	"res://Items/ItemData/Consumables/Healing/Resources/lesser_healing_potion.tres",
 	"res://Items/ItemData/Weapons/Resources/dagger.tres",
-	"res://Items/ItemData/Equipment/Chest/Resources/testarmor.tres"
+	"res://Items/ItemData/Equipment/Chest/Resources/testarmor.tres",
+	"res://Items/ItemData/Consumables/Lootboxes/Resources/Bronze_Box.tres"
 ]
 
 func _ready():
@@ -190,40 +191,37 @@ func quick_equip(new_data: ItemData) -> void:
 		slot.slot_item = null
 	
 func quick_use(new_data: ItemData) -> void:
-	# sift inventory for item and get slot reference
+	# Sift inventory for item and get slot reference
 	var slot = self.get_slot(new_data)
 
-	print("quick use")
-	# if slot is not found, return early
-	if not slot:
+	# Return early if slot is not found, has no item, or is swapping
+	if not slot or not slot.slot_item or self.swapping:
 		return
-		
-	# if there's no item in the slot, return
-	if not slot.slot_item:
-		return
-		
-	# if slot is swapping for some reason, return early
-	if self.swapping:
-		return
-		
-	# actually use the consumable
-	slot.slot_item.data.consume(owner)
-		
-	# deduct one from the slot item
-	slot.slot_item.quantity -= 1
 	
-	#deduct one from any hotbar equivalents
-	var hotbar_equivalents = self.get_slots(slot.slot_item.data, self.hotbar)
-	if hotbar_equivalents.size() > 0:
-		for hotbar_slot in hotbar_equivalents:
-			hotbar_slot.slot_item.quantity = slot.slot_item.quantity
-			hotbar_slot.slot_item.update_quantity()
-			
-			if hotbar_slot.slot_item.quantity <= 0:
-				hotbar_slot.slot_item = null
+	# Handle LootBoxData separately
+	if new_data is LootBoxData:
+		new_data.open_box(owner)
+	else:
+		# Use the consumable
+		if new_data is ConsumableData:
+			slot.slot_item.data.consume(owner)
 
-	#update quantity
+	# Deduct one from the slot item
+	slot.slot_item.quantity -= 1
+
+	# Update any hotbar equivalents
+	var hotbar_equivalents = self.get_slots(slot.slot_item.data, self.hotbar)
+	for hotbar_slot in hotbar_equivalents:
+		hotbar_slot.slot_item.quantity = slot.slot_item.quantity
+		hotbar_slot.slot_item.update_quantity()
+		
+		if hotbar_slot.slot_item.quantity <= 0:
+			hotbar_slot.slot_item = null
+
+	# Update quantity in the original slot
 	slot.slot_item.update_quantity()
 	
+	# Remove the item from the slot if quantity is zero
 	if slot.slot_item.quantity <= 0:
 		slot.slot_item = null
+

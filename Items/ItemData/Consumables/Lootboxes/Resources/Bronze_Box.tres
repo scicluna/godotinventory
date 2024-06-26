@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="LootBoxData" load_steps=5 format=3 uid="uid://bve6k5h4f7840"]
+
+[ext_resource type="PackedScene" uid="uid://ch7tvh5ofktuy" path="res://Items/ItemData/Weapons/Scenes/dagger.tscn" id="1_56w5f"]
+[ext_resource type="Script" path="res://Items/ItemData/Scripts/LootBoxData.gd" id="1_d8fyi"]
+[ext_resource type="Resource" uid="uid://6x6j0mox6blk" path="res://Lootboxes/Resources/Bronze_Box.tres" id="2_i6hsx"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0wi30"]
+
+[resource]
+script = ExtResource("1_d8fyi")
+loot_table = ExtResource("2_i6hsx")
+item_type = 2
+item_name = "Bronze Loot Box"
+description = "Wow, Its a boring Loot Box"
+item_icon = SubResource("PlaceholderTexture2D_0wi30")
+item_texture = ExtResource("1_56w5f")
