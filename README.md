@@ -6,3 +6,4 @@
 
 - Okay, So now we need to figure out loot boxes.
 - How am I going to get the graphics to work? the rest is working.
+- Idk what im supposed to do.
